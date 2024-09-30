@@ -10,6 +10,9 @@ public class App {
    * @param args command line arguments.
    */
   public static void main(String[] args) {
+    model.Member member = new model.Member("Anna", "email");
+    member.setCredit(100);
+    System.out.println(member.getCredit());
     // adapt to start the application in your way
     model.Simple m = new model.Simple();
     Simple c = new Simple();
