@@ -1,13 +1,13 @@
 package model;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Member {
   private String name;
   private String email;
   private int id;
   private int credit;
-  //private ArrayList<Item> items = new ArrayList<Item>();
+  private ArrayList<Item> items = new ArrayList<Item>();
 
   public Member(String name, String email) {
     setName(name);
@@ -46,5 +46,13 @@ public class Member {
 
   public void setCredit(int credit) {
     this.credit += credit;
+  }
+
+  public ArrayList<Item> geItem() {
+    return this.items;
+  }
+
+  public void setItem(Item item) {
+    this.items.add(item);
   }
 }
