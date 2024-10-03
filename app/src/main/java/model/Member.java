@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Member {
   private String name;
@@ -13,7 +14,6 @@ public class Member {
     setName(name);
     setEmail(email);
     setId();
-    this.credit = 100;
   }
 
   public String getName() {
@@ -48,11 +48,20 @@ public class Member {
     this.credit += credit;
   }
 
-  public ArrayList<Item> geItem() {
-    return this.items;
-  }
+  public List<Item> getItems() {
+    return new ArrayList<>(this.items);
+}
 
   public void setItem(Item item) {
     this.items.add(item);
+  }
+
+  public void removeItem(Item item) {
+    this.items.remove(item);
+  }
+
+  @Override
+  public String toString() {
+    return "Name: " + getName() + ", Email: " + getEmail() + ", Credit: " + getCredit() + ", Number of owned items: " + items.size();
   }
 }
