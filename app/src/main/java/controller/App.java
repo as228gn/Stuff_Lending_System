@@ -14,14 +14,13 @@ public class App {
    */
   public static void main(String[] args) {
     Member controller = new Member();
-    Item itemController = new Item();
     var member1 = controller.createMember("Anna", "email");
     var member2 = controller.createMember("Banna", "email");
     var member3 = controller.createMember("Canna", "email");
     
-    var item1 = itemController.createItem("Sport", "Ball", "Football", 20, member1);
-    var item2 = itemController.createItem("Leisure", "Harry Potter", "Book", 3, member1);
-    var item3 = itemController.createItem("Kitchen", "Pot", "Pot", 60, member2);
+    var item1 = controller.addItem("Sport", "Ball", "Football", 20, member1);
+    var item2 = controller.addItem("Leisure", "Harry Potter", "Book", 3, member1);
+    var item3 = controller.addItem("Kitchen", "Pot", "Pot", 60, member2);
     //System.out.println(item.toString());
     List<model.Member> members = controller.getMembers();
     
@@ -34,7 +33,7 @@ public class App {
       }
     }
 
-    itemController.deleteItem(item1);
+    controller.deleteItem(item1);
 
     for (model.Member member : members) {
       System.out.println(member.toString());

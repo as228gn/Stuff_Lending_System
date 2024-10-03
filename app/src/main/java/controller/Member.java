@@ -3,9 +3,10 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Item;
+
 public class Member {
   private ArrayList<model.Member> members = new ArrayList<model.Member>();
-  private ArrayList<model.Item> items = new ArrayList<model.Item>();
 
   public Member() {
   }
@@ -23,7 +24,6 @@ public class Member {
 
   public model.Item addItem(String category, String name, String description, int prize, model.Member ownedBy) {
     model.Item item = new model.Item(category, name, description, prize, ownedBy);
-    this.items.add(item);
     ownedBy.setCredit(100);
     ownedBy.setItem(item);
     return item;
@@ -31,8 +31,17 @@ public class Member {
 
   public void deleteItem(model.Item item) {
     String nameToRemove = item.getName();
-    items.removeIf(items -> items.getName() == nameToRemove);
+    for (model.Member member : members) {
+      List<model.Item> items = member.getItems();
+
+      for (model.Item thing : items) {
+        if (thing.getName() == nameToRemove) {
+          member.removeItem(thing);
+        }
+      }
+    }
   }
+
 
   public List<model.Member> getMembers() {
     return new ArrayList<>(this.members);
