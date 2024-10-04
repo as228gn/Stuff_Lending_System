@@ -1,30 +1,24 @@
 package controller;
 
+import java.util.List;
+
+import model.Member;
+
 /**
  * A class symbolising an item called Item.
  *
  */
 public class Item {
 
+  public Item(){}
 
-  // public Item() {
-  // }
+  public void ListAllItems(List<Member> members) {
+    for (model.Member member : members) {
+      List<model.Item> items = member.getItems();
 
-  // public model.Item createItem(String category, String name, String description, int prize, model.Member ownedBy) {
-  //   model.Item item = new model.Item(category, name, description, prize, ownedBy);
-  //   this.items.add(item);
-  //   ownedBy.setCredit(100);
-  //   ownedBy.setItem(item);
-  //   return item;
-  // }
-
-  // public void deleteItem(model.Item item) {
-  //   String nameToRemove = item.getName();
-  //   items.removeIf(items -> items.getName() == nameToRemove);
-  // }
-
-  // public List<model.Item> getItems() {
-  //   return new ArrayList<>(this.items);
-  // }
-  
+      for (model.Item a : items) {
+        System.out.println(a.toString());
+      }
+    }
+  }
 }

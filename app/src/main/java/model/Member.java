@@ -59,12 +59,10 @@ public class Member {
     return new ArrayList<>(this.ownedItems);
 }
 
-  public void addOwnedItem(Item item, Member member) throws Exception {
-    if (item.getOwnedBy() != member) {
-      throw new Exception("Fel medlem");
-    }
+  public void addOwnedItem(Item item){
     this.ownedItems.add(item);
     setCredit(100);
+    item.setOwnedBy(this.getName());
   }
 
   public void removeOwnedItem(Item item) {
