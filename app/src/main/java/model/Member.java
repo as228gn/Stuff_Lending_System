@@ -1,20 +1,27 @@
 package model;
 
+import java.io.SyncFailedException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class symbolising a member called Member.
+ *
+ */
 public class Member {
   private String name;
   private String email;
   private int id;
   private int credit;
-  private ArrayList<Item> items = new ArrayList<Item>();
+  private ArrayList<Item> ownedItems = new ArrayList<Item>();
 
   public Member(String name, String email) {
     setName(name);
     setEmail(email);
     setId();
   }
+
+  public Member(){}
 
   public String getName() {
     return this.name;
@@ -49,19 +56,23 @@ public class Member {
   }
 
   public List<Item> getItems() {
-    return new ArrayList<>(this.items);
+    return new ArrayList<>(this.ownedItems);
 }
 
-  public void setItem(Item item) {
-    this.items.add(item);
+  public void addOwnedItem(Item item, Member member) throws Exception {
+    if (item.getOwnedBy() != member) {
+      throw new Exception("Fel medlem");
+    }
+    this.ownedItems.add(item);
+    setCredit(100);
   }
 
-  public void removeItem(Item item) {
-    this.items.remove(item);
+  public void removeOwnedItem(Item item) {
+    this.ownedItems.remove(item);
   }
 
   @Override
   public String toString() {
-    return "Name: " + getName() + ", Email: " + getEmail() + ", Credit: " + getCredit() + ", Number of owned items: " + items.size();
+    return "Name: " + getName() + ", Email: " + getEmail() + ", Credit: " + getCredit() + ", Number of owned items: " + ownedItems.size();
   }
 }

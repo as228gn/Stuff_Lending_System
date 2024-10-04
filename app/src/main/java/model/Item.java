@@ -2,13 +2,17 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * A class symbolising an item called Item.
+ *
+ */
 public class Item {
   private String category;
   private String name;
   private String description;
   private int prize;
-  private Member ownedBy;
   private Member lendedTo;
+  private Member ownedBy;
   private boolean availability = true;
   private ArrayList<Contract> contracts = new ArrayList<Contract>();
 
@@ -36,10 +40,6 @@ public class Item {
     return this.prize;
   }
 
-  public String getOwnedBy() {
-    return this.ownedBy.getName();
-  }
-
   public Member getLendedTo() {
     return this.lendedTo;
   }
@@ -56,9 +56,13 @@ public class Item {
     this.availability = false;
   }
 
+  public Member getOwnedBy(){
+    return this.ownedBy;
+  }
+
   @Override
   public String toString() {
     return "   " + getName() + ", Description: " + getDescription() + ", Category: " + getCategory() + ", Prize: "
-      + getPrize() + ", Owned by: " + getOwnedBy() + " and lended to: " + getLendedTo();
+      + getPrize() + " and lended to: " + getLendedTo();
   }
 }

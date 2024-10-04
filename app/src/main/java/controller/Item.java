@@ -1,8 +1,9 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * A class symbolising an item called Item.
+ *
+ */
 public class Item {
 
 
