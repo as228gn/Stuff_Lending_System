@@ -16,8 +16,9 @@ public class MemberController {
    *
    * @param a member.
    */
-  public model.Member createMember(String name, String email) {
+  public model.Member createMember(String name, String email, Day day) {
     model.Member member = new model.Member(name, email);
+    member.setDayOfCreation(day.getDay());
     memberList.addMember(member);
     return member;
   }
@@ -46,7 +47,8 @@ public class MemberController {
       List<model.Item> items = member.getItems();
 
       for (model.Item a : items) {
-        System.out.println(a.toString());
+        if(a.isAvaliable() == true) {
+        System.out.println(a.toString());}
       }
     }
   }

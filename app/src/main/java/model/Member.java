@@ -1,6 +1,5 @@
 package model;
 
-import java.io.SyncFailedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +12,7 @@ public class Member {
   private String email;
   private int id;
   private int credit;
+  private int dayOfCreation;
   private ArrayList<Item> ownedItems = new ArrayList<Item>();
 
   public Member(String name, String email) {
@@ -55,6 +55,14 @@ public class Member {
     this.credit += credit;
   }
 
+  public int getDayOfCreation() {
+    return this.dayOfCreation;
+  }
+
+  public void setDayOfCreation(int dayOfCreation) {
+    this.dayOfCreation = dayOfCreation;
+  }
+
   public List<Item> getItems() {
     return new ArrayList<>(this.ownedItems);
 }
@@ -62,7 +70,6 @@ public class Member {
   public void addOwnedItem(Item item){
     this.ownedItems.add(item);
     setCredit(100);
-    item.setOwnedBy(this.getName());
   }
 
   public void removeOwnedItem(Item item) {

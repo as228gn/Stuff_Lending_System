@@ -12,9 +12,10 @@ public class Item {
   private String name;
   private String description;
   private int prize;
+  private int dayOfCreation;
   private Member lendedTo;
-  private String ownedBy;
-  private boolean availability = true;
+  private Member ownedBy;
+  private boolean isAvaliable = true;
   private ArrayList<Contract> contracts = new ArrayList<Contract>();
 
   public Item(String category, String name, String description, int prize) {
@@ -40,6 +41,14 @@ public class Item {
     return this.prize;
   }
 
+  public int getDayOfCreation() {
+    return this.dayOfCreation;
+  }
+
+  public void setDayOfCreation(int dayOfCreation) {
+    this.dayOfCreation = dayOfCreation;
+  }
+
   public Member getLendedTo() {
     return this.lendedTo;
   }
@@ -48,19 +57,23 @@ public class Item {
     this.lendedTo = lendedTo;
   }
 
-  public boolean getAvilability() {
-    return this.availability;
+  public Boolean isAvaliable() {
+    return this.isAvaliable;
   }
 
-  public void setAvilability(boolean availability) {
-    this.availability = false;
+  public void setFree() {
+    this.isAvaliable = true;
   }
 
-  public String getOwnedBy() {
+  public void setLended() {
+    this.isAvaliable = false;
+  }
+
+  public Member getOwnedBy() {
     return this.ownedBy;
   }
 
-  public void setOwnedBy(String member) {
+  public void setOwnedBy(Member member) {
     this.ownedBy = member;
   }
 
@@ -80,6 +93,6 @@ public class Item {
   @Override
   public String toString() {
     return "   " + getName() + ", Description: " + getDescription() + ", Category: " + getCategory() + ", Prize: "
-        + getPrize() + " Owned by: " + getOwnedBy() + " and lended to: " + getLendedTo();
+        + getPrize() + " Owned by: " + ownedBy.getName() + " and lended to: " + getLendedTo();
   }
 }

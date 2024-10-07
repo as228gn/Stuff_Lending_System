@@ -14,19 +14,21 @@ public class App {
    * @throws Exception 
    */
   public static void main(String[] args) {
+    Day day = new Day(6);
     MemberController controller = new MemberController();
+    Contract contract = new Contract();
     Item itemController = new Item();
-    var member1 = controller.createMember("Anna", "email");
-    var member2 = controller.createMember("Banna", "email");
-    var member3 = controller.createMember("Canna", "email");
+    var member1 = controller.createMember("Anna", "email", day);
+    var member2 = controller.createMember("Banna", "email", day);
+    var member3 = controller.createMember("Canna", "email", day);
+
+    var item1 = itemController.createItem("Sport", "Ball", "Football", 5, day, member2);
+    itemController.createItem("Leisure", "Harry Potter", "Book", 50, day, member2);
+    itemController.createItem("Kitchen", "Pot", "Pot", 60, day, member1);
+
+    contract.createContract(item1, 8, day, member1);
     
-    model.Item item1 = new model.Item("Sport", "Ball", "Football", 20);
-    model.Item item2 = new model.Item("Leisure", "Harry Potter", "Book", 3);
-    model.Item item3 = new model.Item("Kitchen", "Pot", "Pot", 60);
-  
-    member2.addOwnedItem(item3);
-    member2.addOwnedItem(item2);
-    member1.addOwnedItem(item1);
+
     //System.out.println(item.toString());
     List<model.Member> members = controller.getMembers();
     
@@ -39,7 +41,7 @@ public class App {
       }
     }
 
-    controller.ListAllItems();
+    itemController.ListAllItems(members);
       
     // adapt to start the application in your way
     model.Simple m = new model.Simple();
