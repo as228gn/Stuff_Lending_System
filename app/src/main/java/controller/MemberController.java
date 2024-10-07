@@ -11,6 +11,10 @@ public class MemberController {
 
   public MemberController(){}
 
+  public void collectInput(String name, String email, int phone) {
+    model.Member member = new model.Member(name, email, phone);
+  }
+
   /**
    * A method that creates a member.
    *
