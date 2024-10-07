@@ -10,9 +10,10 @@ import model.Member;
  */
 public class Item {
 
-  public Item(){}
+  public Item() {
+  }
 
-   /**
+  /**
    * A method that creates an item.
    *
    * @param a item.
@@ -25,13 +26,31 @@ public class Item {
     return item;
   }
 
-  public void ListAllItems(List<Member> members) {
+  public void viewAllItems(List<Member> members){
+    for (model.Member member : members) {
+      System.out.println(member.toString());
+      List<model.Item> items = member.getItems();
+
+      for (model.Item a : items) {
+        System.out.println(a.toString());
+      }
+    }
+  }
+
+  public void ListItemsToLend(List<Member> members, Day day) {
     for (model.Member member : members) {
       List<model.Item> items = member.getItems();
 
       for (model.Item a : items) {
-        if (a.isAvaliable() == true) { 
-        System.out.println(a.toString());}
+        List<model.Contract> contracts = a.getContracts();
+        for (model.Contract contract : contracts) {
+          if (contract.getEndTime() < day.getDay()) {
+            a.setFree();
+          }
+        }
+        if (a.isAvaliable() == true) {
+          System.out.println(a.toString());
+        }
       }
     }
   }

@@ -93,6 +93,6 @@ public class Item {
   @Override
   public String toString() {
     return "   " + getName() + ", Description: " + getDescription() + ", Category: " + getCategory() + ", Prize: "
-        + getPrize() + " Owned by: " + ownedBy.getName() + " and lended to: " + getLendedTo();
+        + getPrize();
   }
 }

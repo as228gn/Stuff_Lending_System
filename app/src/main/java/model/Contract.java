@@ -21,6 +21,9 @@ public class Contract {
 
   public void payCredit() {
     Member owner = this.item.getOwnedBy();
+    if (owner == lender) {
+      return;
+    }
     int prize = this.item.getPrize();
     int lendedDays = endTime - startTime;
     int prizeToOwner = lendedDays * prize;
@@ -58,6 +61,6 @@ public class Contract {
 
   @Override
   public String toString() {
-    return "   " + getItem() + ", StartTime: " + getStarTime() + ", EndTime: " + getEndTime();
+    return "      Lended to: " + lender.getName() + ", StartTime: " + getStarTime() + ", EndTime: " + getEndTime();
   }
 }

@@ -19,7 +19,43 @@ public class MemberList {
    * @return a member.
    */
   public void addMember(Member member) {
+    if(!isIdUnique(member.getId())) {
+      System.err.println("Id must be unique");
+    }
+    if(!isEmailUnique(member.getEmail())) {
+      System.err.println("Email must be unique");
+    }
+    if(!isPhoneUnique(member.getPhone())) {
+      System.err.println("Phonenumber must be unique");
+    }
     this.members.add(member);
+  }
+
+  private boolean isIdUnique(String id) {
+    for (Member member : members) {
+      if (member.getId().equals(id)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private boolean isEmailUnique(String email) {
+    for (Member member : members) {
+      if (member.getEmail().equals(email)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private boolean isPhoneUnique(int phone) {
+    for (Member member : members) {
+      if (member.getPhone() == phone) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -41,4 +77,3 @@ public class MemberList {
   }
 
 }
-

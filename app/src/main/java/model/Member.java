@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A class symbolising a member called Member.
@@ -10,18 +12,20 @@ import java.util.List;
 public class Member {
   private String name;
   private String email;
-  private int id;
+  private int phone;
+  private String id;
   private int credit;
   private int dayOfCreation;
   private ArrayList<Item> ownedItems = new ArrayList<Item>();
 
-  public Member(String name, String email) {
+  public Member(String name, String email, int phone) {
     setName(name);
     setEmail(email);
-    setId();
+    setPhone(phone);
   }
 
-  public Member(){}
+  public Member() {
+  }
 
   public String getName() {
     return this.name;
@@ -39,12 +43,44 @@ public class Member {
     this.email = email;
   }
 
-  public int getId() {
+  public void setPhone(int phone){
+    this.phone = phone;
+  }
+
+  public int getPhone() {
+    return phone;
+  }
+
+  public String getId() {
     return this.id;
   }
 
   public void setId() {
-    //this.id =
+    ArrayList<String> letters = new ArrayList<>();
+    letters.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
+        "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+    ArrayList<Integer> numbers = new ArrayList<>();
+    for (int i = 0; i <= 9; i++) {
+      numbers.add(i);
+    }
+
+    StringBuilder id = new StringBuilder();
+
+    Random random = new Random();
+    for (int i = 0; i < 3; i++) {
+
+      int randomIndex = random.nextInt(letters.size());
+      id.append(letters.get(randomIndex));
+    }
+
+    for (int i = 0; i < 3; i++) {
+
+      int randomIndex = random.nextInt(numbers.size());
+      id.append(numbers.get(randomIndex));
+    }
+
+    this.id = id.toString();
+
   }
 
   public int getCredit() {
@@ -65,9 +101,9 @@ public class Member {
 
   public List<Item> getItems() {
     return new ArrayList<>(this.ownedItems);
-}
+  }
 
-  public void addOwnedItem(Item item){
+  public void addOwnedItem(Item item) {
     this.ownedItems.add(item);
     setCredit(100);
   }
@@ -78,6 +114,7 @@ public class Member {
 
   @Override
   public String toString() {
-    return "Name: " + getName() + ", Email: " + getEmail() + ", Credit: " + getCredit() + ", Number of owned items: " + ownedItems.size();
+    return "Name: " + getName() + ", Email: " + getEmail() + ", Credit: " + getCredit() + ", Number of owned items: "
+        + ownedItems.size();
   }
 }

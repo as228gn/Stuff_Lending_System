@@ -18,9 +18,9 @@ public class App {
     MemberController controller = new MemberController();
     Contract contract = new Contract();
     Item itemController = new Item();
-    var member1 = controller.createMember("Anna", "email", day);
-    var member2 = controller.createMember("Banna", "email", day);
-    var member3 = controller.createMember("Canna", "email", day);
+    var member1 = controller.createMember("Anna", "emailo", 2376, day);
+    var member2 = controller.createMember("Banna", "emaila", 2378, day);
+    var member3 = controller.createMember("Canna", "email", 2347, day);
 
     var item1 = itemController.createItem("Sport", "Ball", "Football", 5, day, member2);
     itemController.createItem("Leisure", "Harry Potter", "Book", 50, day, member2);
@@ -38,10 +38,15 @@ public class App {
 
       for (model.Item a : items) {
         System.out.println(a.toString());
+
+        List<model.Contract> contracts = a.getContracts();
+        for (model.Contract c : contracts) {
+          System.out.println(c.toString());
+        }
       }
     }
 
-    itemController.ListAllItems(members);
+    //itemController.ListItemsToLend(members, day);
       
     // adapt to start the application in your way
     model.Simple m = new model.Simple();

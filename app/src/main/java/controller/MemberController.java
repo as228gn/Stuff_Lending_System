@@ -16,11 +16,21 @@ public class MemberController {
    *
    * @param a member.
    */
-  public model.Member createMember(String name, String email, Day day) {
-    model.Member member = new model.Member(name, email);
+  public model.Member createMember(String name, String email, int phone, Day day) {
+    model.Member member = new model.Member(name, email, phone);
     member.setDayOfCreation(day.getDay());
+    member.setId();
     memberList.addMember(member);
     return member;
+  }
+
+  /**
+   * A method that updates a member.
+   *
+   * @param a member.
+   */
+  public void updateMember(String name, String email, String memberID) {
+    
   }
 
   /**
