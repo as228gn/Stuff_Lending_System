@@ -1,10 +1,12 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import model.Member;
 
+/**
+ * A class called Membercontroller symbolising the controller.
+ *
+ */
 public class MemberController {
   model.MemberList memberList = new model.MemberList();
   model.Member memberModel = new model.Member();
@@ -13,6 +15,11 @@ public class MemberController {
   public MemberController() {
   }
 
+  /**
+   * A method that starts the application by telling the view to put out the menu.
+   *
+   * @param day The day counter, telling the application what day it is.
+   */
   public void startMenu(Day day) {
     while (true) {
       String menuChoise = menu.printMenu();
@@ -22,6 +29,27 @@ public class MemberController {
         String email = menu.getUserInputString("Email: ");
         String phone = menu.getUserInputString("Phonenumber: ");
         createMember(name, email, phone, day);
+      }
+      if (menuChoise.equals("dm")) {
+        String email = menu.getUserInputString("Please write the email of the member you want to delete: ");
+        for (model.Member member : members) {
+          if (email.equals(member.getEmail())) {
+            memberList.deleteMember(member);
+          }
+        }
+      }
+      if (menuChoise.equals("um")) {
+        String email = menu.getUserInputString("Please write the email of the member you want to update: ");
+        String name = menu.getUserInputString("Updated name: ");
+        String newEmail = menu.getUserInputString("Updated email: ");
+        String phone = menu.getUserInputString("Updated phonenumber: ");
+        for (model.Member member : members) {
+          if (email.equals(member.getEmail())) {
+            member.setName(name);
+            member.setEmail(newEmail);
+            member.setPhone(phone);
+          }
+        }
       }
       if (menuChoise.equals("vm")) {
         String email = menu.getUserInputString("Please write the email of the member you want to view: ");
@@ -36,6 +64,62 @@ public class MemberController {
       }
       if (menuChoise.equals("vami")) {
         menu.viewAllMembersAndItems(members);
+      }
+      if (menuChoise.equals("i")) {
+        model.Member owner = null;
+        String ownerOfItem = menu.getUserInputString("Owners email: ");
+        for (model.Member member : members) {
+          if (ownerOfItem.equals(member.getEmail())) {
+            owner = member;
+          }
+        }
+        String category = menu.getUserInputString("Category: ");
+        String name = menu.getUserInputString("Name: ");
+        String description = menu.getUserInputString("Description: ");
+        int price = menu.getUserInputInt("Price: ");
+
+        createItem(category, name, description, price, day, owner);
+      }
+      if (menuChoise.equals("di")) {
+        String itemId = menu.getUserInputString("Please write the item-ID of the item you want to delete: ");
+        for (model.Member member : members) {
+          List<model.Item> items = member.getItems();
+
+          for (model.Item a : items) {
+            if (a.getId().equals(itemId)) {
+              member.removeOwnedItem(a);
+            }
+          }
+        }
+      }
+      if (menuChoise.equals("ui")) {
+        String itemId = menu.getUserInputString("Please write the item-ID of the item you want to update: ");
+        String category = menu.getUserInputString("Category: ");
+        String name = menu.getUserInputString("Name: ");
+        String description = menu.getUserInputString("Description: ");
+        int price = menu.getUserInputInt("Price: ");
+        for (model.Member member : members) {
+          List<model.Item> items = member.getItems();
+          for (model.Item a : items) {
+            if (a.getId().equals(itemId)) {
+              a.setCategory(category);
+              a.setName(name);
+              a.setDescription(description);
+              a.setPrice(price);
+            }
+          }
+        }
+      }
+      if (menuChoise.equals("vi")) {
+        String itemId = menu.getUserInputString("Please write the item-ID of the item you want to view: ");
+        for (model.Member member : members) {
+          List<model.Item> items = member.getItems();
+          for (model.Item a : items) {
+            if (a.getId().equals(itemId)) {
+              menu.viewAnItem(a);
+            }
+          }
+        }
       }
       if (menuChoise.equals("l")) {
         String email = menu.getUserInputString("Email of the lending member: ");
@@ -56,8 +140,9 @@ public class MemberController {
             }
           }
         }
+        int startDay = menu.getUserInputInt("From what day do you want to lend it? ");
         int endDay = menu.getUserInputInt("Till what day do you want to lend it? ");
-        createContract(item, endDay, day, lender);
+        createContract(item, startDay, endDay, day, lender);
 
       }
       if (menuChoise.equals("q")) {
@@ -70,7 +155,10 @@ public class MemberController {
   /**
    * A method that creates a member.
    *
-   * @param a member.
+   * @param name The name of the member.
+   * @param email The email of the member.
+   * @param phone The phonenumber of the member.
+   * @param day Symbolising the day of creation.
    */
   public model.Member createMember(String name, String email, String phone, Day day) {
     model.Member member = new model.Member(name, email, phone);
@@ -81,43 +169,17 @@ public class MemberController {
   }
 
   /**
-   * A method that updates a member.
-   *
-   * @param a member.
-   */
-  public void updateMember(String name, String email, String memberID) {
-
-  }
-
-  /**
-   * A method that deletes a member.
-   *
-   * @param member The member object to delete.
-   */
-  public void deleteMember(model.Member member) {
-    memberList.deleteMember(member);
-  }
-
-  public void ListAllItems() {
-    List<model.Member> members = memberList.getMembers();
-    for (model.Member member : members) {
-      List<model.Item> items = member.getItems();
-
-      for (model.Item a : items) {
-        if (a.isAvaliable() == true) {
-          System.out.println(a.toString());
-        }
-      }
-    }
-  }
-
-  /**
    * A method that creates an item.
    *
-   * @param a item.
+   * @param category A category for the item.
+   * @param name The name of the item.
+   * @param description A description of the item.
+   * @param price The price of the item.
+   * @param day Symbolising the day of creation.
+   * @param owner The owner of the item.
    */
-  public model.Item createItem(String category, String name, String description, int prize, Day day, Member owner) {
-    model.Item item = new model.Item(category, name, description, prize);
+  public model.Item createItem(String category, String name, String description, int price, Day day, Member owner) {
+    model.Item item = new model.Item(category, name, description, price);
     item.setDayOfCreation(day.getDay());
     item.setOwnedBy(owner);
     item.setId();
@@ -136,45 +198,25 @@ public class MemberController {
     return item;
   }
 
-  public void ListItemsToLend(List<Member> members, Day day) {
-    for (model.Member member : members) {
-      List<model.Item> items = member.getItems();
-
-      for (model.Item a : items) {
-        List<model.Contract> contracts = a.getContracts();
-        for (model.Contract contract : contracts) {
-          if (contract.getEndTime() < day.getDay()) {
-            a.setFree();
-          }
-        }
-        if (a.isAvaliable() == true) {
-          System.out.println(a.toString());
-        }
-      }
-    }
-  }
-
   /**
-   * A method that creates a contract.
+   * A method that creates a contract between the lender and the owner.
    *
-   * @param a contract.
+   * @param item The item being lended.
+   * @param endTime The time the item returns.
+   * @param day The startday of the lending.
+   * @param lender The lender of the item.
    */
-  public model.Contract createContract(model.Item item, int endTime, Day day, Member lender) {
-    List<model.Contract> contracts = item.getContracts();
-    for (model.Contract contract : contracts) {
-      if (contract.getEndTime() > day.getDay()) {
-        System.out.println("Item not avaliable.");
-      }
-    }
-    if (lender.getCredit() < item.getPrize() * endTime - day.getDay()) {
+  public model.Contract createContract(model.Item item, int startTime, int endTime, Day day, Member lender) {
+    if (lender.getCredit() < item.getPrice() * endTime - day.getDay()) {
       System.out.println("Not enough credits.");
     }
-    model.Contract contract = new model.Contract(item, endTime, lender);
-    contract.setStartTime(day.getDay());
-    contract.payCredit();
+    if (startTime < day.getDay()) {
+      System.out.println("StartTime has expired.");
+    }
+    model.Contract contract = new model.Contract(item, startTime, endTime, lender);
     item.setLendedTo(lender);
     item.addContract(contract);
-    item.setLended();
+    contract.payCredit();
     return contract;
   }
 

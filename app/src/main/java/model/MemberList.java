@@ -16,16 +16,16 @@ public class MemberList {
   /**
    * A method that adds a member.
    *
-   * @return a member.
+   * @param member The member to be added.
    */
   public void addMember(Member member) {
-    if(!isIdUnique(member.getId())) {
+    if (!isIdUnique(member.getId())) {
       System.err.println("Id must be unique");
     }
-    if(!isEmailUnique(member.getEmail())) {
+    if (!isEmailUnique(member.getEmail())) {
       System.err.println("Email must be unique");
     }
-    if(!isPhoneUnique(member.getPhone())) {
+    if (!isPhoneUnique(member.getPhone())) {
       System.err.println("Phonenumber must be unique");
     }
     this.members.add(member);
@@ -51,7 +51,7 @@ public class MemberList {
 
   private boolean isPhoneUnique(String phone) {
     for (Member member : members) {
-      if (member.getPhone() == phone) {
+      if (member.getPhone().equals(phone)) {
         return false;
       }
     }
@@ -69,8 +69,8 @@ public class MemberList {
 
   /**
    * A method that returns all the members.
-   * 
-   * @return Members.
+   
+   * @return Members. 
    */
   public List<model.Member> getMembers() {
     return new ArrayList<>(this.members);

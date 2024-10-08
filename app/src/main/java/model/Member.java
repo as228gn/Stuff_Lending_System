@@ -18,6 +18,13 @@ public class Member {
   private int dayOfCreation;
   private ArrayList<Item> ownedItems = new ArrayList<Item>();
 
+  /**
+   * Constructor of member.
+   *
+   * @param name The name of the member.
+   * @param email The email of the member.
+   * @param phone The phonenumber of the member.
+   */
   public Member(String name, String email, String phone) {
     setName(name);
     setEmail(email);
@@ -43,7 +50,7 @@ public class Member {
     this.email = email;
   }
 
-  public void setPhone(String phone){
+  public void setPhone(String phone) {
     this.phone = phone;
   }
 
@@ -55,34 +62,32 @@ public class Member {
     return this.id;
   }
 
+  /**
+   * A method that creates a unique id for the member.
+   *
+   */
   public void setId() {
     ArrayList<String> letters = new ArrayList<>();
-    letters.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
-        "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+    letters.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h",
+        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
         
     ArrayList<Integer> numbers = new ArrayList<>();
-    
     for (int i = 0; i <= 9; i++) {
       numbers.add(i);
     }
-
     StringBuilder id = new StringBuilder();
 
     Random random = new Random();
-
     for (int i = 0; i < 3; i++) {
       int randomIndex = random.nextInt(letters.size());
       id.append(letters.get(randomIndex));
     }
 
     for (int i = 0; i < 3; i++) {
-
       int randomIndex = random.nextInt(numbers.size());
       id.append(numbers.get(randomIndex));
     }
-
     this.id = id.toString();
-
   }
 
   public int getCredit() {
@@ -121,7 +126,7 @@ public class Member {
 
   @Override
   public String toString() {
-    return "Name: " + getName() + ", Email: " + getEmail() + ", Credit: " + getCredit() + ", Number of owned items: "
+    return "Member: " + getName() + ", Email: " + getEmail() + ", Credit: " + getCredit() + ", Number of owned items: "
         + ownedItems.size();
   }
 }
