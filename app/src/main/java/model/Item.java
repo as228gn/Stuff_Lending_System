@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * A class symbolising an item called Item.
@@ -16,6 +18,7 @@ public class Item {
   private Member lendedTo;
   private Member ownedBy;
   private boolean isAvaliable = true;
+  private String id;
   private ArrayList<Contract> contracts = new ArrayList<Contract>();
 
   public Item(String category, String name, String description, int prize) {
@@ -77,6 +80,40 @@ public class Item {
     this.ownedBy = member;
   }
 
+  public void setId() {
+    ArrayList<String> letters = new ArrayList<>();
+    letters.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
+        "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+
+    ArrayList<Integer> numbers = new ArrayList<>();
+
+    for (int i = 0; i <= 9; i++) {
+      numbers.add(i);
+    }
+
+    StringBuilder id = new StringBuilder();
+
+    Random random = new Random();
+
+    for (int i = 0; i < 3; i++) {
+      int randomIndex = random.nextInt(letters.size());
+      id.append(letters.get(randomIndex));
+    }
+
+    for (int i = 0; i < 3; i++) {
+
+      int randomIndex = random.nextInt(numbers.size());
+      id.append(numbers.get(randomIndex));
+    }
+
+    this.id = id.toString();
+
+  }
+
+  public String getId() {
+    return id;
+  }
+
   public void addContract(Contract contract) {
     this.contracts.add(contract);
   }
@@ -93,6 +130,6 @@ public class Item {
   @Override
   public String toString() {
     return "   " + getName() + ", Description: " + getDescription() + ", Category: " + getCategory() + ", Prize: "
-        + getPrize();
+        + getPrize() + ", ItemID: " + getId();
   }
 }

@@ -12,13 +12,13 @@ import java.util.Random;
 public class Member {
   private String name;
   private String email;
-  private int phone;
+  private String phone;
   private String id;
   private int credit;
   private int dayOfCreation;
   private ArrayList<Item> ownedItems = new ArrayList<Item>();
 
-  public Member(String name, String email, int phone) {
+  public Member(String name, String email, String phone) {
     setName(name);
     setEmail(email);
     setPhone(phone);
@@ -43,11 +43,11 @@ public class Member {
     this.email = email;
   }
 
-  public void setPhone(int phone){
+  public void setPhone(String phone){
     this.phone = phone;
   }
 
-  public int getPhone() {
+  public String getPhone() {
     return phone;
   }
 
@@ -112,6 +112,11 @@ public class Member {
 
   public void removeOwnedItem(Item item) {
     this.ownedItems.remove(item);
+  }
+
+  public String fullInformation() {
+    return "Name: " + getName() + ", Email: " + getEmail() + ", Phonenumber: " + getPhone() + ", MemberID: " + getId() + ", Credit: " + getCredit() + ", Number of owned items: "
+        + ownedItems.size() + ", Member sence day: " + getDayOfCreation();
   }
 
   @Override

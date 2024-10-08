@@ -49,7 +49,7 @@ public class MemberList {
     return true;
   }
 
-  private boolean isPhoneUnique(int phone) {
+  private boolean isPhoneUnique(String phone) {
     for (Member member : members) {
       if (member.getPhone() == phone) {
         return false;
