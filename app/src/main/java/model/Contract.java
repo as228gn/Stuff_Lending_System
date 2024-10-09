@@ -18,10 +18,10 @@ public class Contract {
    * @param lender The lender of the item.
    */
   public Contract(Item item, int startTime, int endTime, Member lender) {
-    this.item = item;
+    this.item = new Item(item);
     this.startTime = startTime;
     this.endTime = endTime;
-    this.lender = lender;
+    this.lender = new Member(lender);
   }
 
   /**
@@ -36,7 +36,6 @@ public class Contract {
     int price = this.item.getPrice();
     int lendedDays = endTime - startTime;
     int prizeToOwner = lendedDays * price;
-    System.out.println(startTime);
     owner.setCredit(prizeToOwner);
     lender.setCredit(-prizeToOwner);
   }
@@ -47,7 +46,7 @@ public class Contract {
    * @return an item.
    */
   public Item getItem() {
-    return this.item;
+    return new Item(item);
   }
 
   /**
@@ -92,7 +91,7 @@ public class Contract {
    * @param lender The lending member.
    */
   public void setLendedTo(Member lender) {
-    this.lender = lender;
+    this.lender = new Member(lender);
   }
 
   /**
@@ -101,7 +100,7 @@ public class Contract {
    * @return The lending member.
    */
   public Member getMember() {
-    return this.lender;
+    return new Member(lender);
   }
 
   @Override

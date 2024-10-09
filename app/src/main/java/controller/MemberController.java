@@ -9,7 +9,6 @@ import model.Member;
  */
 public class MemberController {
   model.MemberList memberList = new model.MemberList();
-  model.Member memberModel = new model.Member();
   view.Menu menu = new view.Menu();
 
   public MemberController() {
@@ -214,7 +213,6 @@ public class MemberController {
       System.out.println("StartTime has expired.");
     }
     model.Contract contract = new model.Contract(item, startTime, endTime, lender);
-    item.setLendedTo(lender);
     item.addContract(contract);
     contract.payCredit();
     return contract;

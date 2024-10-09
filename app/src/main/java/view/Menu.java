@@ -12,9 +12,9 @@ public class Menu {
   Scanner scanner = new Scanner(System.in);
 
   /**
-   * Shows a menu by printing it to the console.
-   * 
-   *@return The chosen option.
+   * A method that prints a menu to the console.
+   *
+   * @return The menuchoise.
    */
   public String printMenu() {
     System.out.println("");

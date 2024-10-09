@@ -17,18 +17,34 @@ public class Member {
   private int credit;
   private int dayOfCreation;
   private ArrayList<Item> ownedItems = new ArrayList<Item>();
+  private Random random;
 
   /**
    * Constructor of member.
    *
-   * @param name The name of the member.
+   * @param name  The name of the member.
    * @param email The email of the member.
    * @param phone The phonenumber of the member.
    */
   public Member(String name, String email, String phone) {
+    this.random = new Random();
     setName(name);
     setEmail(email);
     setPhone(phone);
+  }
+
+  /**
+   * A copyconstructor of member.
+   *
+   * @param copyMember The member to be copied.
+   */
+  public Member(Member copyMember) {
+    if (copyMember != null) {
+      this.name = copyMember.name;
+      this.email = copyMember.email;
+      this.phone = copyMember.phone;
+      this.random = new Random();
+    }
   }
 
   public Member() {
@@ -69,15 +85,14 @@ public class Member {
   public void setId() {
     ArrayList<String> letters = new ArrayList<>();
     letters.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h",
-        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
-        
+            "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+
     ArrayList<Integer> numbers = new ArrayList<>();
     for (int i = 0; i <= 9; i++) {
       numbers.add(i);
     }
     StringBuilder id = new StringBuilder();
 
-    Random random = new Random();
     for (int i = 0; i < 3; i++) {
       int randomIndex = random.nextInt(letters.size());
       id.append(letters.get(randomIndex));
@@ -120,7 +135,8 @@ public class Member {
   }
 
   public String fullInformation() {
-    return "Name: " + getName() + ", Email: " + getEmail() + ", Phonenumber: " + getPhone() + ", MemberID: " + getId() + ", Credit: " + getCredit() + ", Number of owned items: "
+    return "Name: " + getName() + ", Email: " + getEmail() + ", Phonenumber: " + getPhone() + ", MemberID: " + getId()
+        + ", Credit: " + getCredit() + ", Number of owned items: "
         + ownedItems.size() + ", Member sence day: " + getDayOfCreation();
   }
 

@@ -15,24 +15,40 @@ public class Item {
   private String description;
   private int price;
   private int dayOfCreation;
-  private Member lendedTo;
   private Member ownedBy;
   private String id;
   private ArrayList<Contract> contracts = new ArrayList<Contract>();
+  private Random random;
 
   /**
    * Constructor of item.
    *
-   * @param category The category of the item.
-   * @param name The name of the item.
+   * @param category    The category of the item.
+   * @param name        The name of the item.
    * @param description A description of the item.
-   * @param price The price of the item.
+   * @param price       The price of the item.
    */
   public Item(String category, String name, String description, int price) {
+    this.random = new Random();
     this.category = category;
     this.name = name;
     this.description = description;
     this.price = price;
+  }
+
+  /**
+   * A copyconstructor of item.
+   *
+   * @param copyItem The item to be copied.
+   */
+  public Item(Item copyItem) {
+    if (copyItem != null) {
+      this.category = copyItem.category;
+      this.name = copyItem.name;
+      this.description = copyItem.description;
+      this.price = copyItem.price;
+      this.random = new Random();
+    }
   }
 
   public String getCategory() {
@@ -75,20 +91,12 @@ public class Item {
     this.dayOfCreation = dayOfCreation;
   }
 
-  public Member getLendedTo() {
-    return this.lendedTo;
-  }
-
-  public void setLendedTo(Member lendedTo) {
-    this.lendedTo = lendedTo;
-  }
-
   public Member getOwnedBy() {
-    return this.ownedBy;
+    return new Member(ownedBy);
   }
 
   public void setOwnedBy(Member member) {
-    this.ownedBy = member;
+    this.ownedBy = new Member(ownedBy);
   }
 
   /**
@@ -97,8 +105,8 @@ public class Item {
    */
   public void setId() {
     ArrayList<String> letters = new ArrayList<>();
-    letters.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
-        "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+    letters.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+        "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
 
     ArrayList<Integer> numbers = new ArrayList<>();
     for (int i = 0; i <= 9; i++) {
@@ -106,7 +114,6 @@ public class Item {
     }
     StringBuilder id = new StringBuilder();
 
-    Random random = new Random();
     for (int i = 0; i < 3; i++) {
       int randomIndex = random.nextInt(letters.size());
       id.append(letters.get(randomIndex));
@@ -123,15 +130,22 @@ public class Item {
     return id;
   }
 
+  /**
+   * Adds a contract to the item and holds the logic for not creating a contract with conflicting time.
+   *
+   * @param newContract The contract to be added.
+   */
   public void addContract(Contract newContract) {
     List<model.Contract> contracts = getContracts();
     for (model.Contract existingContract : contracts) {
-      if (newContract.getStartTime() >= existingContract.getStartTime() && newContract.getStartTime() <= existingContract.getEndTime()) {
-        //throw err
+      if (newContract.getStartTime() >= existingContract.getStartTime()
+          && newContract.getStartTime() <= existingContract.getEndTime()) {
+        // throw err
         System.out.println("Conflicting time");
       }
-      
-      if (newContract.getEndTime() >= existingContract.getStartTime() && newContract.getEndTime() <= existingContract.getEndTime()) {
+
+      if (newContract.getEndTime() >= existingContract.getStartTime()
+          && newContract.getEndTime() <= existingContract.getEndTime()) {
         System.out.println("Conflicting time 2");
       }
     }

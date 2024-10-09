@@ -68,9 +68,9 @@ public class MemberList {
   }
 
   /**
-   * A method that returns all the members.
-   
-   * @return Members. 
+   * A method that returns a list of members.
+   *
+   * @return Members.
    */
   public List<model.Member> getMembers() {
     return new ArrayList<>(this.members);
