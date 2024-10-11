@@ -45,18 +45,18 @@ public class Contract {
    *
    * @return an item.
    */
-  public Item getItem() {
-    return new Item(item);
-  }
+  // public Item getItem() {
+  //   return new Item(item);
+  // }
 
   /**
    * A method that sets the starttime.
    *
    * @param startTime The starttime of the contract.
    */
-  public void setStartTime(int startTime) {
-    this.startTime = startTime;
-  }
+  // public void setStartTime(int startTime) {
+  //   this.startTime = startTime;
+  // }
 
   /**
    * A method that gets the startTime.
@@ -72,9 +72,9 @@ public class Contract {
    *
    * @param endTime The endtime of the contract.
    */
-  public void setEndTime(int endTime) {
-    this.endTime = endTime;
-  }
+  // public void setEndTime(int endTime) {
+  //   this.endTime = endTime;
+  // }
 
   /**
    * A method that gets the endtime.
@@ -90,18 +90,18 @@ public class Contract {
    *
    * @param lender The lending member.
    */
-  public void setLendedTo(Member lender) {
-    this.lender = new Member(lender);
-  }
+  // public void setLendedTo(Member lender) {
+  //   this.lender = new Member(lender);
+  // }
 
   /**
    * A method that gets the lending member.
    *
    * @return The lending member.
    */
-  public Member getMember() {
-    return new Member(lender);
-  }
+  // public Member getMember() {
+  //   return new Member(lender);
+  // }
 
   @Override
   public String toString() {

@@ -66,12 +66,12 @@ public class Member {
     this.email = email;
   }
 
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
   public String getPhone() {
     return phone;
+  }
+  
+  public void setPhone(String phone) {
+    this.phone = phone;
   }
 
   public String getId() {

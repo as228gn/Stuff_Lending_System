@@ -17,16 +17,17 @@ public class MemberList {
    * A method that adds a member.
    *
    * @param member The member to be added.
+   * @throws Exception if argument is not unique.
    */
-  public void addMember(Member member) {
+  public void addMember(Member member) throws Exception {
     if (!isIdUnique(member.getId())) {
-      System.err.println("Id must be unique");
+      throw new Exception("Id must be unique.");
     }
     if (!isEmailUnique(member.getEmail())) {
-      System.err.println("Email must be unique");
+      throw new Exception("Email must be unique.");
     }
     if (!isPhoneUnique(member.getPhone())) {
-      System.err.println("Phonenumber must be unique");
+      throw new Exception("Phonenumber must be unique.");
     }
     this.members.add(member);
   }
