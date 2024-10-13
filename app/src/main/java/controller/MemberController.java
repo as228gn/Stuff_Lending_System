@@ -184,9 +184,10 @@ public class MemberController {
    * @param price       The price of the item.
    * @param day         Symbolising the day of creation.
    * @param owner       The owner of the item.
-   * @throws Exception 
+   * @throws Exception If Id is not unique.
    */
-  public model.Item createItem(String category, String name, String description, int price, Day day, Member owner) throws Exception {
+  public model.Item createItem(String category, String name, String description, int price, Day day, Member owner)
+      throws Exception {
     model.Item item = new model.Item(category, name, description, price);
     item.setDayOfCreation(day.getDay());
     item.setOwnedBy(owner);

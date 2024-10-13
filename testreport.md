@@ -63,32 +63,32 @@
 
 ### 3.1 Create Contract
 
-1. Create a contract for I2 lending to M2, 3 days of lending, from day 1 to and including day 3.
+1. Create a contract for Ball lending to Joe, 3 days of lending, from day 5 to and including day 7.
 2. Check that the contract was created.
 
 ### 3.2 Create Contract - Not Enough Funds
 
-1. Create a contract for I1 lending to M2, 3 days of lending, from day 1 to and including day 3.
+1. Create a contract for Pot lending to Sara, 4 days of lending, from day 5 to and including day 8.
 2. Check that the contract was not created due to lack of funds.
 
 ### 3.3 Create Contract - Conflicting Time
 
-1. Create a contract for I2 lending to M2, 3 days of lending, from day 4 to and including day 6.
+1. Create a contract for Ball lending to Benny, 5 days of lending, from day 4 to and including day 8.
 2. Check that the contract was not created due to conflicting time.
 
 ### 3.4 Create Contract - Conflicting Time
 
-1. Create a contract for I2 lending to M2, 3 days of lending, from day 6 to and including day 9.
+1. Create a contract for Ball lending to Benny, 3 days of lending, from day 4 to and including day 6.
 2. Check that the contract was not created due to conflicting time.
 
 ### 3.5 Create Contract - Conflicting Time
 
-1. Create a contract for I2 lending to M2, 3 days of lending, from day 4 to and including day 9.
+1. Create a contract for Ball lending to Benny, 3 days of lending, from day 6 to and including day 8.
 2. Check that the contract was not created due to conflicting time.
 
 ### 3.6 Create Contract - Conflicting Time
 
-1. Create a contract for I2 lending to M2, 3 days of lending, from day 6 to and including day 6.
+1. Create a contract for Ball lending to Benny, 3 days of lending, from day 5 to and including day 7.
 2. Check that the contract was not created due to conflicting time.
 
 ### 4.1 Advance Time
@@ -109,13 +109,13 @@ Performed by: Anna Ståhlberg
 | 1.1  |   ok   |                             |
 | 1.2  |   ok   |                             |
 | 1.3  |   ok   |                             |
-| 2.1  |        |                             |
-| 2.2  |        |                             |
-| 2.3  |        |                             |
-| 3.1  |        |                             |
-| 3.2  |        |                             |
-| 3.3  |        |                             |
-| 3.4  |        |                             |
-| 3.5  |        |                             |
+| 2.1  |   ok   |                             |
+| 2.2  |   ok   |                             |
+| 2.3  |   ok   |                             |
+| 3.1  |   ok   |                             |
+| 3.2  |   ok   |                             |
+| 3.3  |   ok   |                             |
+| 3.4  |   ok   |                             |
+| 3.5  |   ok   |                             |
 | 3.6  |        |                             |
 | 4.1  |        |                             |

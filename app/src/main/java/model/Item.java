@@ -92,11 +92,11 @@ public class Item {
   }
 
   public Member getOwnedBy() {
-    return new Member(ownedBy);
+    return this.ownedBy;
   }
 
   public void setOwnedBy(Member member) {
-    this.ownedBy = new Member(ownedBy);
+    this.ownedBy = member;
   }
 
   /**
@@ -131,22 +131,33 @@ public class Item {
   }
 
   /**
-   * Adds a contract to the item and holds the logic for not creating a contract with conflicting time.
+   * Adds a contract to the item and holds the logic for not creating a contract
+   * with conflicting time.
    *
    * @param newContract The contract to be added.
+   * @throws Exception if the item is not avaliable the desired time.
    */
-  public void addContract(Contract newContract) {
+  public void addContract(Contract newContract) throws Exception {
     List<model.Contract> contracts = getContracts();
     for (model.Contract existingContract : contracts) {
       if (newContract.getStartTime() >= existingContract.getStartTime()
           && newContract.getStartTime() <= existingContract.getEndTime()) {
-        // throw err
-        System.out.println("Conflicting time");
+        throw new Exception("Item not avaliable.");
       }
 
       if (newContract.getEndTime() >= existingContract.getStartTime()
           && newContract.getEndTime() <= existingContract.getEndTime()) {
-        System.out.println("Conflicting time 2");
+        throw new Exception("Item not avaliable.");
+      }
+
+      if (newContract.getStartTime() < existingContract.getStartTime()
+          && newContract.getEndTime() > existingContract.getEndTime()) {
+        throw new Exception("Item not avaliable.");
+      }
+
+      if (newContract.getStartTime() > existingContract.getStartTime()
+          && newContract.getEndTime() < existingContract.getEndTime()) {
+        throw new Exception("Item not avaliable.");
       }
     }
     this.contracts.add(newContract);

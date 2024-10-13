@@ -109,8 +109,8 @@ public class Member {
     return this.credit;
   }
 
-  public void setCredit(int credit) {
-    this.credit += credit;
+  public void setCredit(int cost) {
+    this.credit += cost;
   }
 
   public int getDayOfCreation() {
@@ -134,6 +134,11 @@ public class Member {
     this.ownedItems.remove(item);
   }
 
+  /**
+   * A copyconstructor of member.
+   *
+   * @return A string of full information of the member.
+   */
   public String fullInformation() {
     return "Name: " + getName() + ", Email: " + getEmail() + ", Phonenumber: " + getPhone() + ", MemberID: " + getId()
         + ", Credit: " + getCredit() + ", Number of owned items: "

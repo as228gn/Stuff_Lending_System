@@ -18,10 +18,10 @@ public class Contract {
    * @param lender The lender of the item.
    */
   public Contract(Item item, int startTime, int endTime, Member lender) {
-    this.item = new Item(item);
+    this.item = item;
     this.startTime = startTime;
     this.endTime = endTime;
-    this.lender = new Member(lender);
+    this.lender = lender;
   }
 
   /**
@@ -30,7 +30,7 @@ public class Contract {
    */
   public void payCredit() {
     Member owner = this.item.getOwnedBy();
-    if (owner == lender) {
+    if (owner.getId().equals(lender.getId())) {
       return;
     }
     int price = this.item.getPrice();
@@ -40,38 +40,19 @@ public class Contract {
     lender.setCredit(-prizeToOwner);
   }
 
-  /**
-   * A method that gets the item.
-   *
-   * @return an item.
-   */
   // public Item getItem() {
   //   return new Item(item);
   // }
 
-  /**
-   * A method that sets the starttime.
-   *
-   * @param startTime The starttime of the contract.
-   */
+
   // public void setStartTime(int startTime) {
   //   this.startTime = startTime;
   // }
 
-  /**
-   * A method that gets the startTime.
-   *
-   * @return The starttime of the contrct.
-   */
   public int getStartTime() {
     return this.startTime;
   }
 
-  /**
-   * A method that sets the endtime.
-   *
-   * @param endTime The endtime of the contract.
-   */
   // public void setEndTime(int endTime) {
   //   this.endTime = endTime;
   // }
@@ -85,11 +66,6 @@ public class Contract {
     return this.endTime;
   }
 
-  /**
-   * A method that sets the lender.
-   *
-   * @param lender The lending member.
-   */
   // public void setLendedTo(Member lender) {
   //   this.lender = new Member(lender);
   // }
