@@ -1,15 +1,12 @@
 package controller;
 
 import java.util.List;
-import model.Member;
 
 /**
  * A class called Membercontroller symbolising the controller.
  *
  */
 public class MemberController {
-  model.MemberList memberList = new model.MemberList();
-  view.Menu menu = new view.Menu();
 
   public MemberController() {
   }
@@ -19,10 +16,10 @@ public class MemberController {
    *
    * @param day The day counter, telling the application what day it is.
    * @throws Exception if the lender doesn´t have enough credit or if the
-   *                   starttime has expired.
+   *                   start-time has expired.
    */
   @SuppressWarnings("null")
-  public void startMenu(Day day) throws Exception {
+  public void startMenu(model.MemberList memberList, view.Menu menu, Day day) throws Exception {
     while (true) {
       try {
         String menuChoise = menu.printMenu();
@@ -31,7 +28,7 @@ public class MemberController {
           String name = menu.getUserInputString("Name: ");
           String email = menu.getUserInputString("Email: ");
           String phone = menu.getUserInputString("Phonenumber: ");
-          createMember(name, email, phone, day);
+          memberList.createMember(name, email, phone, day);
         }
         if (menuChoise.equals("dm")) {
           String email = menu.getUserInputString("Please write the email of the member you want to delete: ");
@@ -162,7 +159,7 @@ public class MemberController {
           if (ownerId.equals(lender.getId())) {
             return;
           }
-          int priceToOwner = item.createContract(startDay, endDay, day, lender.getId());
+          int priceToOwner = item.createContract(startDay, endDay, day, lender.getName());
           lender.setCredit(-priceToOwner);
           owner.setCredit(priceToOwner);
 
@@ -177,53 +174,4 @@ public class MemberController {
     }
     menu.printMessage("Thank you for using the stuff lending system and helping the enviroment!");
   }
-
-  /**
-   * A method that creates a member.
-   *
-   * @param name  The name of the member.
-   * @param email The email of the member.
-   * @param phone The phonenumber of the member.
-   * @param day   Symbolising the day of creation.
-   * @throws Exception if the member email, phonenumber or ID is not unique.
-   */
-  public model.Member createMember(String name, String email, String phone, Day day) throws Exception {
-    model.Member member = new model.Member(name, email, phone);
-    member.setDayOfCreation(day.getDay());
-    member.setId();
-    memberList.addMember(member);
-    return member;
-  }
-
-  // /**
-  //  * A method that creates a contract between the lender and the owner.
-  //  *
-  //  * @param item    The item being lended.
-  //  * @param endTime The time the item returns.
-  //  * @param day     The startday of the lending.
-  //  * @param lender  The lender of the item.
-  //  * @throws Exception if the lender doesn´t have enough credit or if the start
-  //  *                   time has expired.
-  //  */
-  // public void createContract(model.Item item, int startTime, int endTime, Day day, Member lender)
-  //     throws Exception {
-  //   if (lender.getCredit() < item.getPrice() * endTime - day.getDay()) {
-  //     throw new Exception("Not enough credit.");
-  //   }
-  //   if (startTime < day.getDay()) {
-  //     throw new Exception("Start time has expired.");
-  //   }
-  //   String owner = item.getOwnedBy();
-  //   if (owner.equals(lender.getId())) {
-  //     return;
-  //   }
-  //   // int price =item.getPrice();
-  //   // int lendedDays = endTime - startTime;
-  //   // int prizeToOwner = lendedDays * price;
-  //   // owner.setCredit(prizeToOwner);
-  //   // lender.setCredit(-prizeToOwner);
-  //   model.Contract contract = new model.Contract(startTime, endTime, lender.getId());
-  //   item.addContract(contract);
-  // }
-
 }

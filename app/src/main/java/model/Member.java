@@ -1,11 +1,10 @@
 package model;
 
+import controller.Day;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
-import controller.Day;
 
 /**
  * A class symbolising a member called Member.
@@ -58,7 +57,7 @@ public class Member {
   public String getPhone() {
     return phone;
   }
-  
+
   public void setPhone(String phone) {
     this.phone = phone;
   }
@@ -74,7 +73,7 @@ public class Member {
   public void setId() {
     ArrayList<String> letters = new ArrayList<>();
     letters.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h",
-            "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
 
     ArrayList<Integer> numbers = new ArrayList<>();
     for (int i = 0; i <= 9; i++) {
@@ -114,7 +113,7 @@ public class Member {
     return new ArrayList<>(this.ownedItems);
   }
 
-   /**
+  /**
    * A method that creates an item.
    *
    * @param category    A category for the item.
@@ -122,10 +121,9 @@ public class Member {
    * @param description A description of the item.
    * @param price       The price of the item.
    * @param day         Symbolising the day of creation.
-   * @param owner       The owner of the item.
    * @throws Exception If Id is not unique.
    */
-  public void createItem(String category, String name, String description, int price, Day day)
+  public Item createItem(String category, String name, String description, int price, Day day)
       throws Exception {
     Item item = new model.Item(category, name, description, price);
     String itemId = this.getId() + "-" + this.itemIdCounter;
@@ -135,9 +133,10 @@ public class Member {
     item.setOwnedBy(getId());
     item.setDayOfCreation(day.getDay());
     addOwnedItem(item);
+    return item;
   }
 
-  public void addOwnedItem(Item item) {
+  private void addOwnedItem(Item item) {
     this.ownedItems.add(item);
     setCredit(100);
   }

@@ -5,57 +5,26 @@ package model;
  *
  */
 public class Contract {
-  //private Item item;
   private int startTime;
   private int endTime;
-  private String lenderID;
+  private String lenderName;
 
   /**
    * Constructor of contract.
    *
-   * @param item The item being lended.
+   * @param startTime The startTime of the loan.
    * @param endTime The endtime of the loan.
-   * @param lender The lender of the item.
+   * @param lenderName The name of the lender.
    */
-  public Contract(int startTime, int endTime, String lenderID) {
-    //this.item = item;
+  public Contract(int startTime, int endTime, String lenderName) {
     this.startTime = startTime;
     this.endTime = endTime;
-    this.lenderID = lenderID;
+    this.lenderName = lenderName;
   }
-
-  /**
-   * A method that pays credit to the owner and deducts credit from the lender.
-   *
-   */
-  // public void payCredit() {
-  //   Member owner = this.item.getOwnedBy();
-  //   if (owner.getId().equals(lender.getId())) {
-  //     return;
-  //   }
-  //   int price = this.item.getPrice();
-  //   int lendedDays = endTime - startTime;
-  //   int prizeToOwner = lendedDays * price;
-  //   owner.setCredit(prizeToOwner);
-  //   lender.setCredit(-prizeToOwner);
-  // }
-
-  // public Item getItem() {
-  //   return new Item(item);
-  // }
-
-
-  // public void setStartTime(int startTime) {
-  //   this.startTime = startTime;
-  // }
 
   public int getStartTime() {
     return this.startTime;
   }
-
-  // public void setEndTime(int endTime) {
-  //   this.endTime = endTime;
-  // }
 
   /**
    * A method that gets the endtime.
@@ -66,21 +35,8 @@ public class Contract {
     return this.endTime;
   }
 
-  // public void setLendedTo(Member lender) {
-  //   this.lender = new Member(lender);
-  // }
-
-  /**
-   * A method that gets the lending member.
-   *
-   * @return The lending member.
-   */
-  // public Member getMember() {
-  //   return new Member(lender);
-  // }
-
   @Override
   public String toString() {
-    return "      Lended to: " + lenderID + ", StartTime: " + getStartTime() + ", EndTime: " + getEndTime();
+    return "      Lended to: " + lenderName + ", StartTime: " + getStartTime() + ", EndTime: " + getEndTime();
   }
 }

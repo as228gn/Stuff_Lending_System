@@ -1,5 +1,6 @@
 package model;
 
+import controller.Day;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +15,29 @@ public class MemberList {
   }
 
   /**
+   * A method that creates a member.
+   *
+   * @param name  The name of the member.
+   * @param email The email of the member.
+   * @param phone The phonenumber of the member.
+   * @param day   Symbolising the day of creation.
+   * @throws Exception if the member email, phonenumber or ID is not unique.
+   */
+  public Member createMember(String name, String email, String phone, Day day) throws Exception {
+    model.Member member = new model.Member(name, email, phone);
+    member.setDayOfCreation(day.getDay());
+    member.setId();
+    addMember(member);
+    return member;
+  }
+
+  /**
    * A method that adds a member.
    *
    * @param member The member to be added.
    * @throws Exception if argument is not unique.
    */
-  public void addMember(Member member) throws Exception {
+  private void addMember(Member member) throws Exception {
     if (!isIdUnique(member.getId())) {
       throw new Exception("Id must be unique.");
     }

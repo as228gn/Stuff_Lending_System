@@ -1,11 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 import controller.Day;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class symbolising an item called Item.
@@ -84,8 +81,7 @@ public class Item {
     this.ownedById = ownedById;
   }
 
-  public void setId(String id)
-  {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -93,22 +89,21 @@ public class Item {
     return id;
   }
 
-   /**
+  /**
    * A method that creates a contract between the lender and the owner.
    *
-   * @param item    The item being lended.
    * @param endTime The time the item returns.
    * @param day     The startday of the lending.
-   * @param lender  The lender of the item.
+   * @param lenderName  The lender of the item.
    * @throws Exception if the lender doesn´t have enough credit or if the start
    *                   time has expired.
    */
-  public int createContract(int startTime, int endTime, Day day, String lenderID)
+  public int createContract(int startTime, int endTime, Day day, String lenderName)
       throws Exception {
     int price = getPrice();
     int lendedDays = endTime - startTime + 1;
     int prizeToOwner = lendedDays * price;
-    model.Contract contract = new model.Contract(startTime, endTime, lenderID);
+    model.Contract contract = new model.Contract(startTime, endTime, lenderName);
     addContract(contract);
     return prizeToOwner;
   }
@@ -120,7 +115,7 @@ public class Item {
    * @param newContract The contract to be added.
    * @throws Exception if the item is not avaliable the desired time.
    */
-  public void addContract(Contract newContract) throws Exception {
+  private void addContract(Contract newContract) throws Exception {
     List<model.Contract> contracts = getContracts();
     for (model.Contract existingContract : contracts) {
       if (newContract.getStartTime() >= existingContract.getStartTime()

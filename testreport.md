@@ -8,8 +8,7 @@
   1. Check that there are at least 3 members.
   2. Check that one member (Joe) has 100 credits. Joe has one item for lending, Pot with a cost of 60.
   3. Check that one member (Sara) has 200 credits and two items for lending, Ball with a cost of 5 and "Harry Potter" with a cost of 10.
-  4. Check that one member (Benny) has 0 credits and no items.
-  5. Check that Joe has an active lending contract for Ball that starts on day 7 and ends on day 10.
+  4. Check that one member (Benny) has 0 credits and no items for lending.
 
 ### 1.1 Create Member
 

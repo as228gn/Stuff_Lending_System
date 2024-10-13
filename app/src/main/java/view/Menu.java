@@ -31,6 +31,7 @@ public class Menu {
     System.out.println("Press vi to view an item:");   
     System.out.println("Press l to lend an item:");    
     System.out.print("Press q to quit: ");
+    System.out.println("");
     String menuChoise = scanner.nextLine();
     return menuChoise;
   }
