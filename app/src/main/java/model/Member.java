@@ -16,6 +16,7 @@ public class Member {
   private String email;
   private String phone;
   private String id;
+  private int itemIdCounter;
   private int credit;
   private int dayOfCreation;
   private ArrayList<Item> ownedItems = new ArrayList<Item>();
@@ -33,20 +34,6 @@ public class Member {
     setName(name);
     setEmail(email);
     setPhone(phone);
-  }
-
-  /**
-   * A copyconstructor of member.
-   *
-   * @param copyMember The member to be copied.
-   */
-  public Member(Member copyMember) {
-    if (copyMember != null) {
-      this.name = copyMember.name;
-      this.email = copyMember.email;
-      this.phone = copyMember.phone;
-      this.random = new Random();
-    }
   }
 
   public Member() {
@@ -141,23 +128,13 @@ public class Member {
   public void createItem(String category, String name, String description, int price, Day day)
       throws Exception {
     Item item = new model.Item(category, name, description, price);
-    int id = generateItemId();
-    System.out.println("Id:" + id);
-    item.setId(id);
+    String itemId = this.getId() + "-" + this.itemIdCounter;
+    itemIdCounter = itemIdCounter + 1;
+
+    item.setId(itemId);
+    item.setOwnedBy(getId());
     item.setDayOfCreation(day.getDay());
     addOwnedItem(item);
-  }
-
-  private int generateItemId()
-  {
-    int highestId = 0;
-
-    for (Item item : ownedItems) {
-      if (item.getId() > highestId)
-        highestId = item.getId();  
-    }
-
-    return highestId+1;
   }
 
   public void addOwnedItem(Item item) {
@@ -183,6 +160,6 @@ public class Member {
   @Override
   public String toString() {
     return "Member: " + getName() + ", Email: " + getEmail() + ", Credit: " + getCredit() + ", Number of owned items: "
-        + ownedItems.size();
+        + ownedItems.size() + ", MemberID: " + getId();
   }
 }

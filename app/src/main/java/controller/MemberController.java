@@ -85,12 +85,11 @@ public class MemberController {
         }
         if (menuChoise.equals("di")) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to delete: ");
-          int itemInt = Integer.parseInt(itemId);
           for (model.Member member : members) {
             List<model.Item> items = member.getItems();
 
             for (model.Item a : items) {
-              if (a.getId() == itemInt) {
+              if (a.getId().equals(itemId)) {
                 member.removeOwnedItem(a);
               }
             }
@@ -98,7 +97,6 @@ public class MemberController {
         }
         if (menuChoise.equals("ui")) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to update: ");
-          int itemInt = Integer.parseInt(itemId);
           String category = menu.getUserInputString("Category: ");
           String name = menu.getUserInputString("Name: ");
           String description = menu.getUserInputString("Description: ");
@@ -106,7 +104,7 @@ public class MemberController {
           for (model.Member member : members) {
             List<model.Item> items = member.getItems();
             for (model.Item a : items) {
-              if (a.getId() == itemInt) {
+              if (a.getId().equals(itemId)) {
                 a.setCategory(category);
                 a.setName(name);
                 a.setDescription(description);
@@ -117,11 +115,10 @@ public class MemberController {
         }
         if (menuChoise.equals("vi")) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to view: ");
-          int itemInt = Integer.parseInt(itemId);
           for (model.Member member : members) {
             List<model.Item> items = member.getItems();
             for (model.Item a : items) {
-              if (a.getId() == itemInt) {
+              if (a.getId().equals(itemId)) {
                 menu.viewAnItem(a);
               }
             }
@@ -130,6 +127,7 @@ public class MemberController {
         if (menuChoise.equals("l")) {
           String email = menu.getUserInputString("Email of the lending member: ");
           model.Member lender = null;
+          model.Member owner = null;
           model.Item item = null;
           for (model.Member member : members) {
             if (email.equals(member.getEmail())) {
@@ -137,19 +135,36 @@ public class MemberController {
             }
           }
           String itemId = menu.getUserInputString("ID of the item you want to lend:");
-          int itemInt = Integer.parseInt(itemId);
           for (model.Member member : members) {
             List<model.Item> items = member.getItems();
 
             for (model.Item a : items) {
-              if (a.getId() == itemInt) {
+              if (a.getId().equals(itemId)) {
                 item = a;
               }
             }
           }
+          String owningMemberId = item.getOwnedBy();
+          for (model.Member member : members) {
+            if (owningMemberId.equals(member.getId())) {
+              owner = member;
+            }
+          }
           int startDay = menu.getUserInputInt("From what day do you want to lend it? ");
           int endDay = menu.getUserInputInt("Till what day do you want to lend it? ");
-          createContract(item, startDay, endDay, day, lender);
+          if (lender.getCredit() < item.getPrice() * endDay - day.getDay()) {
+            throw new Exception("Not enough credit.");
+          }
+          if (startDay < day.getDay()) {
+            throw new Exception("Start time has expired.");
+          }
+          String ownerId = item.getOwnedBy();
+          if (ownerId.equals(lender.getId())) {
+            return;
+          }
+          int priceToOwner = item.createContract(startDay, endDay, day, lender.getId());
+          lender.setCredit(-priceToOwner);
+          owner.setCredit(priceToOwner);
 
         }
         if (menuChoise.equals("q")) {
@@ -180,35 +195,35 @@ public class MemberController {
     return member;
   }
 
-  /**
-   * A method that creates a contract between the lender and the owner.
-   *
-   * @param item    The item being lended.
-   * @param endTime The time the item returns.
-   * @param day     The startday of the lending.
-   * @param lender  The lender of the item.
-   * @throws Exception if the lender doesn´t have enough credit or if the start
-   *                   time has expired.
-   */
-  public void createContract(model.Item item, int startTime, int endTime, Day day, Member lender)
-      throws Exception {
-    if (lender.getCredit() < item.getPrice() * endTime - day.getDay()) {
-      throw new Exception("Not enough credit.");
-    }
-    if (startTime < day.getDay()) {
-      throw new Exception("Start time has expired.");
-    }
-    String owner = item.getOwnedBy();
-    if (owner.equals(lender.getId())) {
-      return;
-    }
-    // int price =item.getPrice();
-    // int lendedDays = endTime - startTime;
-    // int prizeToOwner = lendedDays * price;
-    // owner.setCredit(prizeToOwner);
-    // lender.setCredit(-prizeToOwner);
-    model.Contract contract = new model.Contract(startTime, endTime, lender.getId());
-    item.addContract(contract);
-  }
+  // /**
+  //  * A method that creates a contract between the lender and the owner.
+  //  *
+  //  * @param item    The item being lended.
+  //  * @param endTime The time the item returns.
+  //  * @param day     The startday of the lending.
+  //  * @param lender  The lender of the item.
+  //  * @throws Exception if the lender doesn´t have enough credit or if the start
+  //  *                   time has expired.
+  //  */
+  // public void createContract(model.Item item, int startTime, int endTime, Day day, Member lender)
+  //     throws Exception {
+  //   if (lender.getCredit() < item.getPrice() * endTime - day.getDay()) {
+  //     throw new Exception("Not enough credit.");
+  //   }
+  //   if (startTime < day.getDay()) {
+  //     throw new Exception("Start time has expired.");
+  //   }
+  //   String owner = item.getOwnedBy();
+  //   if (owner.equals(lender.getId())) {
+  //     return;
+  //   }
+  //   // int price =item.getPrice();
+  //   // int lendedDays = endTime - startTime;
+  //   // int prizeToOwner = lendedDays * price;
+  //   // owner.setCredit(prizeToOwner);
+  //   // lender.setCredit(-prizeToOwner);
+  //   model.Contract contract = new model.Contract(startTime, endTime, lender.getId());
+  //   item.addContract(contract);
+  // }
 
 }

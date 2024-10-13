@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import controller.Day;
+
 /**
  * A class symbolising an item called Item.
  *
@@ -15,10 +17,9 @@ public class Item {
   private String description;
   private int price;
   private int dayOfCreation;
-  private String ownedByID;
-  private int id;
+  private String ownedById;
+  private String id;
   private ArrayList<Contract> contracts = new ArrayList<Contract>();
-  private Random random;
 
   /**
    * Constructor of item.
@@ -29,26 +30,10 @@ public class Item {
    * @param price       The price of the item.
    */
   public Item(String category, String name, String description, int price) {
-    this.random = new Random();
     this.category = category;
     this.name = name;
     this.description = description;
     this.price = price;
-  }
-
-  /**
-   * A copyconstructor of item.
-   *
-   * @param copyItem The item to be copied.
-   */
-  public Item(Item copyItem) {
-    if (copyItem != null) {
-      this.category = copyItem.category;
-      this.name = copyItem.name;
-      this.description = copyItem.description;
-      this.price = copyItem.price;
-      this.random = new Random();
-    }
   }
 
   public String getCategory() {
@@ -92,47 +77,40 @@ public class Item {
   }
 
   public String getOwnedBy() {
-    return this.ownedByID;
+    return this.ownedById;
   }
 
-  public void setOwnedBy(String ownedByID) {
-    this.ownedByID = ownedByID;
+  public void setOwnedBy(String ownedById) {
+    this.ownedById = ownedById;
   }
 
-  public void setId(int id)
+  public void setId(String id)
   {
     this.id = id;
   }
 
-  /**
-   * A method that creates a unique id for the item.
-   *
-   */
-  /* public void setId() {
-    ArrayList<String> letters = new ArrayList<>();
-    letters.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-        "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
-
-    ArrayList<Integer> numbers = new ArrayList<>();
-    for (int i = 0; i <= 9; i++) {
-      numbers.add(i);
-    }
-    StringBuilder id = new StringBuilder();
-
-    for (int i = 0; i < 3; i++) {
-      int randomIndex = random.nextInt(letters.size());
-      id.append(letters.get(randomIndex));
-    }
-
-    for (int i = 0; i < 3; i++) {
-      int randomIndex = random.nextInt(numbers.size());
-      id.append(numbers.get(randomIndex));
-    }
-    this.id = id.toString();
-  } */
-
-  public int getId() {
+  public String getId() {
     return id;
+  }
+
+   /**
+   * A method that creates a contract between the lender and the owner.
+   *
+   * @param item    The item being lended.
+   * @param endTime The time the item returns.
+   * @param day     The startday of the lending.
+   * @param lender  The lender of the item.
+   * @throws Exception if the lender doesn´t have enough credit or if the start
+   *                   time has expired.
+   */
+  public int createContract(int startTime, int endTime, Day day, String lenderID)
+      throws Exception {
+    int price = getPrice();
+    int lendedDays = endTime - startTime + 1;
+    int prizeToOwner = lendedDays * price;
+    model.Contract contract = new model.Contract(startTime, endTime, lenderID);
+    addContract(contract);
+    return prizeToOwner;
   }
 
   /**

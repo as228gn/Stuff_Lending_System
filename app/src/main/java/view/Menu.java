@@ -28,7 +28,6 @@ public class Menu {
     System.out.println("Press i to create an item:");
     System.out.println("Press di to delete an item:");    
     System.out.println("Press ui to update an item:");    
-    System.out.println("Press vi to view an item:");    
     System.out.println("Press vi to view an item:");   
     System.out.println("Press l to lend an item:");    
     System.out.print("Press q to quit: ");
