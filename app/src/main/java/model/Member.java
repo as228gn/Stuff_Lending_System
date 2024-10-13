@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import controller.Day;
+
 /**
  * A class symbolising a member called Member.
  *
@@ -123,6 +125,39 @@ public class Member {
 
   public List<Item> getItems() {
     return new ArrayList<>(this.ownedItems);
+  }
+
+   /**
+   * A method that creates an item.
+   *
+   * @param category    A category for the item.
+   * @param name        The name of the item.
+   * @param description A description of the item.
+   * @param price       The price of the item.
+   * @param day         Symbolising the day of creation.
+   * @param owner       The owner of the item.
+   * @throws Exception If Id is not unique.
+   */
+  public void createItem(String category, String name, String description, int price, Day day)
+      throws Exception {
+    Item item = new model.Item(category, name, description, price);
+    int id = generateItemId();
+    System.out.println("Id:" + id);
+    item.setId(id);
+    item.setDayOfCreation(day.getDay());
+    addOwnedItem(item);
+  }
+
+  private int generateItemId()
+  {
+    int highestId = 0;
+
+    for (Item item : ownedItems) {
+      if (item.getId() > highestId)
+        highestId = item.getId();  
+    }
+
+    return highestId+1;
   }
 
   public void addOwnedItem(Item item) {

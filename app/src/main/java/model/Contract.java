@@ -5,10 +5,10 @@ package model;
  *
  */
 public class Contract {
-  private Item item;
+  //private Item item;
   private int startTime;
   private int endTime;
-  private Member lender;
+  private String lenderID;
 
   /**
    * Constructor of contract.
@@ -17,28 +17,28 @@ public class Contract {
    * @param endTime The endtime of the loan.
    * @param lender The lender of the item.
    */
-  public Contract(Item item, int startTime, int endTime, Member lender) {
-    this.item = item;
+  public Contract(int startTime, int endTime, String lenderID) {
+    //this.item = item;
     this.startTime = startTime;
     this.endTime = endTime;
-    this.lender = lender;
+    this.lenderID = lenderID;
   }
 
   /**
    * A method that pays credit to the owner and deducts credit from the lender.
    *
    */
-  public void payCredit() {
-    Member owner = this.item.getOwnedBy();
-    if (owner.getId().equals(lender.getId())) {
-      return;
-    }
-    int price = this.item.getPrice();
-    int lendedDays = endTime - startTime;
-    int prizeToOwner = lendedDays * price;
-    owner.setCredit(prizeToOwner);
-    lender.setCredit(-prizeToOwner);
-  }
+  // public void payCredit() {
+  //   Member owner = this.item.getOwnedBy();
+  //   if (owner.getId().equals(lender.getId())) {
+  //     return;
+  //   }
+  //   int price = this.item.getPrice();
+  //   int lendedDays = endTime - startTime;
+  //   int prizeToOwner = lendedDays * price;
+  //   owner.setCredit(prizeToOwner);
+  //   lender.setCredit(-prizeToOwner);
+  // }
 
   // public Item getItem() {
   //   return new Item(item);
@@ -81,6 +81,6 @@ public class Contract {
 
   @Override
   public String toString() {
-    return "      Lended to: " + lender.getName() + ", StartTime: " + getStartTime() + ", EndTime: " + getEndTime();
+    return "      Lended to: " + lenderID + ", StartTime: " + getStartTime() + ", EndTime: " + getEndTime();
   }
 }

@@ -21,6 +21,7 @@ public class MemberController {
    * @throws Exception if the lender doesn´t have enough credit or if the
    *                   starttime has expired.
    */
+  @SuppressWarnings("null")
   public void startMenu(Day day) throws Exception {
     while (true) {
       try {
@@ -80,15 +81,16 @@ public class MemberController {
           String description = menu.getUserInputString("Description: ");
           int price = menu.getUserInputInt("Price: ");
 
-          createItem(category, name, description, price, day, owner);
+          owner.createItem(category, name, description, price, day);
         }
         if (menuChoise.equals("di")) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to delete: ");
+          int itemInt = Integer.parseInt(itemId);
           for (model.Member member : members) {
             List<model.Item> items = member.getItems();
 
             for (model.Item a : items) {
-              if (a.getId().equals(itemId)) {
+              if (a.getId() == itemInt) {
                 member.removeOwnedItem(a);
               }
             }
@@ -96,6 +98,7 @@ public class MemberController {
         }
         if (menuChoise.equals("ui")) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to update: ");
+          int itemInt = Integer.parseInt(itemId);
           String category = menu.getUserInputString("Category: ");
           String name = menu.getUserInputString("Name: ");
           String description = menu.getUserInputString("Description: ");
@@ -103,7 +106,7 @@ public class MemberController {
           for (model.Member member : members) {
             List<model.Item> items = member.getItems();
             for (model.Item a : items) {
-              if (a.getId().equals(itemId)) {
+              if (a.getId() == itemInt) {
                 a.setCategory(category);
                 a.setName(name);
                 a.setDescription(description);
@@ -114,10 +117,11 @@ public class MemberController {
         }
         if (menuChoise.equals("vi")) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to view: ");
+          int itemInt = Integer.parseInt(itemId);
           for (model.Member member : members) {
             List<model.Item> items = member.getItems();
             for (model.Item a : items) {
-              if (a.getId().equals(itemId)) {
+              if (a.getId() == itemInt) {
                 menu.viewAnItem(a);
               }
             }
@@ -133,11 +137,12 @@ public class MemberController {
             }
           }
           String itemId = menu.getUserInputString("ID of the item you want to lend:");
+          int itemInt = Integer.parseInt(itemId);
           for (model.Member member : members) {
             List<model.Item> items = member.getItems();
 
             for (model.Item a : items) {
-              if (a.getId().equals(itemId)) {
+              if (a.getId() == itemInt) {
                 item = a;
               }
             }
@@ -176,38 +181,6 @@ public class MemberController {
   }
 
   /**
-   * A method that creates an item.
-   *
-   * @param category    A category for the item.
-   * @param name        The name of the item.
-   * @param description A description of the item.
-   * @param price       The price of the item.
-   * @param day         Symbolising the day of creation.
-   * @param owner       The owner of the item.
-   * @throws Exception If Id is not unique.
-   */
-  public model.Item createItem(String category, String name, String description, int price, Day day, Member owner)
-      throws Exception {
-    model.Item item = new model.Item(category, name, description, price);
-    item.setDayOfCreation(day.getDay());
-    item.setOwnedBy(owner);
-    item.setId();
-    String id = item.getId();
-    List<model.Member> members = memberList.getMembers();
-    for (model.Member member : members) {
-      List<model.Item> items = member.getItems();
-
-      for (model.Item a : items) {
-        if (a.getId().equals(id)) {
-          throw new Exception("Id must be unique.");
-        }
-      }
-    }
-    owner.addOwnedItem(item);
-    return item;
-  }
-
-  /**
    * A method that creates a contract between the lender and the owner.
    *
    * @param item    The item being lended.
@@ -217,7 +190,7 @@ public class MemberController {
    * @throws Exception if the lender doesn´t have enough credit or if the start
    *                   time has expired.
    */
-  public model.Contract createContract(model.Item item, int startTime, int endTime, Day day, Member lender)
+  public void createContract(model.Item item, int startTime, int endTime, Day day, Member lender)
       throws Exception {
     if (lender.getCredit() < item.getPrice() * endTime - day.getDay()) {
       throw new Exception("Not enough credit.");
@@ -225,10 +198,17 @@ public class MemberController {
     if (startTime < day.getDay()) {
       throw new Exception("Start time has expired.");
     }
-    model.Contract contract = new model.Contract(item, startTime, endTime, lender);
+    String owner = item.getOwnedBy();
+    if (owner.equals(lender.getId())) {
+      return;
+    }
+    // int price =item.getPrice();
+    // int lendedDays = endTime - startTime;
+    // int prizeToOwner = lendedDays * price;
+    // owner.setCredit(prizeToOwner);
+    // lender.setCredit(-prizeToOwner);
+    model.Contract contract = new model.Contract(startTime, endTime, lender.getId());
     item.addContract(contract);
-    contract.payCredit();
-    return contract;
   }
 
 }

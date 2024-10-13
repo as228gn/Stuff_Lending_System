@@ -19,13 +19,18 @@ public class Menu {
   public String printMenu() {
     System.out.println("");
     System.out.println("Welcome to the stuff lending system!");
-    System.out.print(
-        "\nPress c to create a member:\nPress dm to delete a member:\nPress um to update a member:\nPress vm to view a member:\nPress vam to view all members\nPress vami to view all members and their items:\nPress i to create an item:\nPress di to delete an item:\n");
-    System.out.println("null");    
-    System.out.println("Press ui to update an item:\n");    
-    System.out.println("Press vi to view an item:\n");    
-    System.out.println("Press vi to view an item:\n");   
-    System.out.println("Press l to lend an item:\n");    
+    System.out.println("Press c to create a member:");    
+    System.out.println("Press dm to delete a member:");    
+    System.out.println("Press um to update a member:");    
+    System.out.println("Press vm to view a member:");    
+    System.out.println("Press vam to view all members");    
+    System.out.println("Press vami to view all members and their items:");    
+    System.out.println("Press i to create an item:");
+    System.out.println("Press di to delete an item:");    
+    System.out.println("Press ui to update an item:");    
+    System.out.println("Press vi to view an item:");    
+    System.out.println("Press vi to view an item:");   
+    System.out.println("Press l to lend an item:");    
     System.out.print("Press q to quit: ");
     String menuChoise = scanner.nextLine();
     return menuChoise;

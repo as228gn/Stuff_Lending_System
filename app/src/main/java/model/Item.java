@@ -15,8 +15,8 @@ public class Item {
   private String description;
   private int price;
   private int dayOfCreation;
-  private Member ownedBy;
-  private String id;
+  private String ownedByID;
+  private int id;
   private ArrayList<Contract> contracts = new ArrayList<Contract>();
   private Random random;
 
@@ -91,19 +91,24 @@ public class Item {
     this.dayOfCreation = dayOfCreation;
   }
 
-  public Member getOwnedBy() {
-    return this.ownedBy;
+  public String getOwnedBy() {
+    return this.ownedByID;
   }
 
-  public void setOwnedBy(Member member) {
-    this.ownedBy = member;
+  public void setOwnedBy(String ownedByID) {
+    this.ownedByID = ownedByID;
+  }
+
+  public void setId(int id)
+  {
+    this.id = id;
   }
 
   /**
    * A method that creates a unique id for the item.
    *
    */
-  public void setId() {
+  /* public void setId() {
     ArrayList<String> letters = new ArrayList<>();
     letters.addAll(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
         "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
@@ -124,9 +129,9 @@ public class Item {
       id.append(numbers.get(randomIndex));
     }
     this.id = id.toString();
-  }
+  } */
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 
