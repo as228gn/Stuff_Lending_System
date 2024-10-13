@@ -149,15 +149,14 @@ public class MemberController {
           }
           int startDay = menu.getUserInputInt("From what day do you want to lend it? ");
           int endDay = menu.getUserInputInt("Till what day do you want to lend it? ");
-          if (lender.getCredit() < item.getPrice() * endDay - day.getDay()) {
-            throw new Exception("Not enough credit.");
-          }
           if (startDay < day.getDay()) {
             throw new Exception("Start time has expired.");
           }
           String ownerId = item.getOwnedBy();
-          if (ownerId.equals(lender.getId())) {
-            return;
+          if (!ownerId.equals(lender.getId())) {
+            if (lender.getCredit() < item.getPrice() * (endDay - day.getDay())) {
+              throw new Exception("Not enough credit.");
+            }
           }
           int priceToOwner = item.createContract(startDay, endDay, day, lender.getName());
           lender.setCredit(-priceToOwner);

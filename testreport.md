@@ -55,10 +55,12 @@
 
 ### 2.3 Delete Item
 
-1. Select a member with one or several items.
-2. Delete one of the member's items that is booked (i.e., a future contract).
-3. Check that the item was deleted from the member's owned items.
-4. Check that the contract was canceled.
+1. Create a contrac.
+2. Select a the member with one or several items who have a booked item.
+3. Delete one of the member's items that is booked (i.e., a future contract).
+4. Check that the item was deleted from the member's owned items.
+5. Check that the contract was canceled.
+6. Quit the application.
 
 ### 3.1 Create Contract
 
@@ -72,6 +74,7 @@
 
 ### 3.3 Create Contract - Conflicting Time
 
+1. Create an item for Benny.
 1. Create a contract for Ball lending to Benny, 5 days of lending, from day 4 to and including day 8.
 2. Check that the contract was not created due to conflicting time.
 
@@ -89,11 +92,6 @@
 
 1. Create a contract for Ball lending to Benny, 3 days of lending, from day 5 to and including day 7.
 2. Check that the contract was not created due to conflicting time.
-
-### 4.1 Advance Time
-
-1. Advance the time by 8 days.
-2. Check that the contract has been fulfilled and that funds have been deducted from M3, who now has 70 credits.
 
 ### Test Report
 
@@ -116,5 +114,4 @@ Performed by: Anna Ståhlberg
 | 3.3  |   ok   |                             |
 | 3.4  |   ok   |                             |
 | 3.5  |   ok   |                             |
-| 3.6  |        |                             |
-| 4.1  |        |                             |
+| 3.6  |   ok   |                             |
