@@ -35,10 +35,34 @@ Add your own code to the packages respectively and feel free to add automatic te
 
 ## Versioning
 
-Adhere to the git versioning instructions according to the assignment.
+Versioning is handled with git.
 
 ## System test
 Adhere to the instructions according to the assigment.
 
 ## Handing In
 Adhere to the instructions according to the assigment.
+
+## Usage
+The day of creation is chosed in App.java. Before you start the application you set the desired day in Day.  
+When the application starts you will see a menu as follows.  
+
+Welcome to the stuff lending system!
+Press c to create a member:
+Press dm to delete a member:
+Press um to update a member:
+Press vm to view a member:
+Press vam to view all members
+Press vami to view all members and their items:
+Press i to create an item:
+Press di to delete an item:
+Press ui to update an item:
+Press vi to view an item:
+Press l to lend an item:
+Press q to quit:  
+  
+There will be 3 hardcoded members in the system when you start.  
+You chose from the menu what you would like to do and the system gives you instructions of what it needs to know to perfom the tasks.  
+
+Before you start the application you choose what day it is in App. You send in the day in Day as an argument. If you want to change the day during runtime you call the setday() method in day.  
+When a member is created it has 0 credits, when a member creates an item it gets 100 credits.

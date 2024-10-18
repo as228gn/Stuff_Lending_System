@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 
+import model.Day;
+
 /**
  * A class called Membercontroller symbolising the controller.
  *

@@ -1,6 +1,6 @@
 package controller;
 
-import model.Member;
+import model.Day;
 import model.MemberList;
 import view.Menu;
 
@@ -17,7 +17,7 @@ public class App {
     MemberController controller = new MemberController();
     model.MemberList memberList = new MemberList();
     view.Menu menu = new Menu();
-    Day day = new Day(4);
+    model.Day day = new Day(4);
 
     var joe = memberList.createMember("Joe", "joe.jones@email.com", "12938", day);
     var sara = memberList.createMember("Sara", "sara.smith@email.com", "13456", day);

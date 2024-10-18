@@ -97,7 +97,6 @@
 
 Version 1
 Date: 2024.10.10  
-Environment: Windows, Java version 18.  
 Performed by: Anna Ståhlberg
 
 | Case | Result | Note                        |

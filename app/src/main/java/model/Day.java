@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 /**
  * A class symbolising a day counter called Day.

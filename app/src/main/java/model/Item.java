@@ -1,6 +1,5 @@
 package model;
 
-import controller.Day;
 import java.util.ArrayList;
 import java.util.List;
 
