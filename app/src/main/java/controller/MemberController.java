@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.List;
-
 import model.Day;
 
 /**
@@ -164,6 +163,10 @@ public class MemberController {
           lender.setCredit(-priceToOwner);
           owner.setCredit(priceToOwner);
 
+        }
+        if (menuChoise.equals("d")) {
+          int dayNumber = menu.getUserInputInt("What day would you like it to be?");
+          day.setDay(dayNumber);
         }
         if (menuChoise.equals("q")) {
           break;

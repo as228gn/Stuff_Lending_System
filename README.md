@@ -64,5 +64,6 @@ Press q to quit:
 There will be 3 hardcoded members in the system when you start.  
 You chose from the menu what you would like to do and the system gives you instructions of what it needs to know to perfom the tasks.  
 
-Before you start the application you choose what day it is in App. You send in the day in Day as an argument. If you want to change the day during runtime you call the setday() method in day.  
-When a member is created it has 0 credits, when a member creates an item it gets 100 credits.
+Before you start the application you choose what day it is in App. You send in the day in Day as an argument. If you want to change the day during runtime you choose d in the menu and send in the day you want it to be.
+When a member is created it has 0 credits, when a member creates an item it gets 100 credits.  
+You pay your credits in beforehand so as soon as a contract is being created the funds are deducted from the lender and paid to the owner.

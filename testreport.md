@@ -93,6 +93,10 @@
 1. Create a contract for Ball lending to Benny, 3 days of lending, from day 5 to and including day 7.
 2. Check that the contract was not created due to conflicting time.
 
+### 4.1 Advance time
+1. Advance the time 8 days.
+2. Check that the contracts are still there and nothing has changed.
+
 ### Test Report
 
 Version 1
@@ -114,3 +118,4 @@ Performed by: Anna Ståhlberg
 | 3.4  |   ok   |                             |
 | 3.5  |   ok   |                             |
 | 3.6  |   ok   |                             |
+| 4.1  |   ok   |                             |
