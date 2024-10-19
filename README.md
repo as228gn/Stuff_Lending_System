@@ -34,6 +34,7 @@ Press di to delete an item:
 Press ui to update an item:  
 Press vi to view an item:  
 Press l to lend an item:  
+Press d to advance the day:  
 Press q to quit:  
   
 There will be 3 hardcoded members in the system when you start.  
