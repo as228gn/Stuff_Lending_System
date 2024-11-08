@@ -1,5 +1,6 @@
 package view;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,26 +16,59 @@ public class Menu {
    * A method that prints a menu to the console.
    *
    * @return The menuchoise.
+   * @throws IOException 
    */
-  public String printMenu() {
+  public MenuChoise printMenu() throws IOException {
     System.out.println("");
     System.out.println("Welcome to the stuff lending system!");
     System.out.println("Press c to create a member:");    
-    System.out.println("Press dm to delete a member:");    
-    System.out.println("Press um to update a member:");    
-    System.out.println("Press vm to view a member:");    
-    System.out.println("Press vam to view all members");    
-    System.out.println("Press vami to view all members and their items:");    
+    System.out.println("Press d to delete a member:");    
+    System.out.println("Press u to update a member:");    
+    System.out.println("Press v to view a member:");    
+    System.out.println("Press a to view all members");    
+    System.out.println("Press t to view all members and their items:");    
     System.out.println("Press i to create an item:");
-    System.out.println("Press di to delete an item:");    
-    System.out.println("Press ui to update an item:");    
-    System.out.println("Press vi to view an item:");   
+    System.out.println("Press e to delete an item:");    
+    System.out.println("Press p to update an item:");    
+    System.out.println("Press y to view an item:");   
     System.out.println("Press l to lend an item:");
-    System.out.println("Press d to advance the day:");     
+    System.out.println("Press f to advance the day:");     
     System.out.print("Press q to quit: ");
     System.out.println("");
-    String menuChoise = scanner.nextLine();
-    return menuChoise;
+
+    int choise = System.in.read();
+    while (choise == '\r' || choise == '\n') {
+      choise = System.in.read();
+    }
+
+    if (choise == 'c') {
+      return MenuChoise.CREATE_MEMBER;
+    } else if (choise == 'd') {
+      return MenuChoise.DELETE_MEMBER;
+    } else if (choise == 'u') {
+      return MenuChoise.UPDATE_MEMBER;
+    } else if (choise == 'v') {
+      return MenuChoise.VIEW_MEMBER;
+    } else if (choise == 'a') {
+      return MenuChoise.VIEW_ALL_MEMBERS;
+    } else if (choise == 't') {
+      return MenuChoise.VIEW_ALL_MEMBERS_ITEMS;
+    } else if (choise == 'i') {
+      return MenuChoise.CREATE_ITEM;
+    } else if (choise == 'e') {
+      return MenuChoise.DELETE_ITEM;
+    } else if (choise == 'p') {
+      return MenuChoise.UPDATE_ITEM;
+    } else if (choise == 'y') {
+      return MenuChoise.VIEW_ITEM;
+    } else if (choise == 'l') {
+      return MenuChoise.LEND_ITEM;
+    } else if (choise == 'f') {
+      return MenuChoise.ADVANCE_DAY;
+    } else if (choise == 'q') {
+      return MenuChoise.QUIT;
+    }
+    return MenuChoise.INVALID;
   }
 
   public String getUserInputString(String message) {

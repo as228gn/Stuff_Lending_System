@@ -1,5 +1,6 @@
 package controller;
 
+import view.MenuChoise;
 import java.util.List;
 import model.Day;
 
@@ -23,15 +24,15 @@ public class MemberController {
   public void startMenu(model.MemberList memberList, view.Menu menu, Day day) throws Exception {
     while (true) {
       try {
-        String menuChoise = menu.printMenu();
+        MenuChoise menuChoise = menu.printMenu();
         List<model.Member> members = memberList.getMembers();
-        if (menuChoise.equals("c")) {
+        if (menuChoise == MenuChoise.CREATE_MEMBER) {
           String name = menu.getUserInputString("Name: ");
           String email = menu.getUserInputString("Email: ");
           String phone = menu.getUserInputString("Phonenumber: ");
           memberList.createMember(name, email, phone, day);
         }
-        if (menuChoise.equals("dm")) {
+        if (menuChoise == MenuChoise.DELETE_MEMBER) {
           String email = menu.getUserInputString("Please write the email of the member you want to delete: ");
           for (model.Member member : members) {
             if (email.equals(member.getEmail())) {
@@ -39,7 +40,7 @@ public class MemberController {
             }
           }
         }
-        if (menuChoise.equals("um")) {
+        if (menuChoise == MenuChoise.UPDATE_MEMBER) {
           String email = menu.getUserInputString("Please write the email of the member you want to update: ");
           String name = menu.getUserInputString("Updated name: ");
           String newEmail = menu.getUserInputString("Updated email: ");
@@ -52,7 +53,7 @@ public class MemberController {
             }
           }
         }
-        if (menuChoise.equals("vm")) {
+        if (menuChoise == MenuChoise.VIEW_MEMBER) {
           String email = menu.getUserInputString("Please write the email of the member you want to view: ");
           for (model.Member member : members) {
             if (email.equals(member.getEmail())) {
@@ -60,13 +61,13 @@ public class MemberController {
             }
           }
         }
-        if (menuChoise.equals("vam")) {
+        if (menuChoise == MenuChoise.VIEW_ALL_MEMBERS) {
           menu.viewAllMembers(members);
         }
-        if (menuChoise.equals("vami")) {
+        if (menuChoise == MenuChoise.VIEW_ALL_MEMBERS_ITEMS) {
           menu.viewAllMembersAndItems(members);
         }
-        if (menuChoise.equals("i")) {
+        if (menuChoise == MenuChoise.CREATE_ITEM) {
           model.Member owner = null;
           String ownerOfItem = menu.getUserInputString("Owners email: ");
           for (model.Member member : members) {
@@ -81,7 +82,7 @@ public class MemberController {
 
           owner.createItem(category, name, description, price, day);
         }
-        if (menuChoise.equals("di")) {
+        if (menuChoise == MenuChoise.DELETE_ITEM) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to delete: ");
           for (model.Member member : members) {
             List<model.Item> items = member.getItems();
@@ -93,7 +94,7 @@ public class MemberController {
             }
           }
         }
-        if (menuChoise.equals("ui")) {
+        if (menuChoise == MenuChoise.UPDATE_ITEM) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to update: ");
           String category = menu.getUserInputString("Category: ");
           String name = menu.getUserInputString("Name: ");
@@ -111,7 +112,7 @@ public class MemberController {
             }
           }
         }
-        if (menuChoise.equals("vi")) {
+        if (menuChoise == MenuChoise.VIEW_ITEM) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to view: ");
           for (model.Member member : members) {
             List<model.Item> items = member.getItems();
@@ -122,7 +123,7 @@ public class MemberController {
             }
           }
         }
-        if (menuChoise.equals("l")) {
+        if (menuChoise == MenuChoise.LEND_ITEM) {
           String email = menu.getUserInputString("Email of the lending member: ");
           model.Member lender = null;
           model.Member owner = null;
@@ -164,11 +165,11 @@ public class MemberController {
           owner.setCredit(priceToOwner);
 
         }
-        if (menuChoise.equals("d")) {
+        if (menuChoise == MenuChoise.ADVANCE_DAY) {
           int dayNumber = menu.getUserInputInt("What day would you like it to be?");
           day.setDay(dayNumber);
         }
-        if (menuChoise.equals("q")) {
+        if (menuChoise == MenuChoise.QUIT) {
           break;
         }
       } catch (Exception e) {
