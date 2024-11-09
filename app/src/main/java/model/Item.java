@@ -8,7 +8,7 @@ import java.util.List;
  *
  */
 public class Item {
-  private String category;
+  private Category category;
   private String name;
   private String description;
   private int price;
@@ -25,18 +25,18 @@ public class Item {
    * @param description A description of the item.
    * @param price       The price of the item.
    */
-  public Item(String category, String name, String description, int price) {
+  public Item(Category category, String name, String description, int price) {
     this.category = category;
     this.name = name;
     this.description = description;
     this.price = price;
   }
 
-  public String getCategory() {
+  public Category getCategory() {
     return this.category;
   }
 
-  public void setCategory(String category) {
+  public void setCategory(Category category) {
     this.category = category;
   }
 

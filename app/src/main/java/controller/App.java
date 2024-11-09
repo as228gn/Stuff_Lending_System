@@ -1,5 +1,6 @@
 package controller;
 
+import model.Category;
 import model.Day;
 import model.MemberList;
 import view.Menu;
@@ -23,9 +24,9 @@ public class App {
     var sara = memberList.createMember("Sara", "sara.smith@email.com", "13456", day);
     memberList.createMember("Benny", "benny.andersson@email.com", "23457", day);
 
-    sara.createItem("Sport", "Ball", "Football", 5, day);
-    sara.createItem("Leisure", "Harry Potter", "Book", 10, day);
-    joe.createItem("Kitchen", "Pot", "Pot", 60, day);
+    sara.createItem(Category.SPORT, "Ball", "Football", 5, day);
+    sara.createItem(Category.OTHER, "Harry Potter", "Book", 10, day);
+    joe.createItem(Category.OTHER, "Pot", "Pot", 60, day);
 
     controller.startMenu(memberList, menu, day);
   }

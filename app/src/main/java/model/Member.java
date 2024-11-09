@@ -122,7 +122,7 @@ public class Member {
    * @param day         Symbolising the day of creation.
    * @throws Exception If Id is not unique.
    */
-  public Item createItem(String category, String name, String description, int price, Day day)
+  public Item createItem(Category category, String name, String description, int price, Day day)
       throws Exception {
     Item item = new model.Item(category, name, description, price);
     String itemId = this.getId() + "-" + this.itemIdCounter;

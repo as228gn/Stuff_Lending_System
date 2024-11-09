@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import model.Category;
+
 /**
  * A class symbolising the view called Menu.
  *
@@ -16,7 +18,7 @@ public class Menu {
    * A method that prints a menu to the console.
    *
    * @return The menuchoise.
-   * @throws IOException 
+   * @throws IOException Throws exception.
    */
   public MenuChoise printMenu() throws IOException {
     System.out.println("");
@@ -70,6 +72,36 @@ public class Menu {
     }
     return MenuChoise.INVALID;
   }
+
+  public Category chooseCategory() throws IOException {
+    System.out.println("Choose your category");
+    System.out.println("Press t for tool");
+    System.out.println("Press v for vehicle");
+    System.out.println("Press g for game");
+    System.out.println("Press y for toy");
+    System.out.println("Press s for sport");
+    System.out.println("Press o for other");
+
+    int choise = System.in.read();
+    while (choise == '\r' || choise == '\n') {
+      choise = System.in.read();
+    }
+
+    if (choise == 't') {
+      return Category.TOOL;
+    } else if (choise == 'v') {
+      return Category.VEHICLE;
+    } else if (choise == 'g') {
+      return Category.GAME;
+    } else if (choise == 'y') {
+      return Category.TOY;
+    } else if (choise == 's') {
+      return Category.SPORT; 
+    } else if (choise == 'o') {
+      return Category.OTHER;
+    }
+    return Category.INVALID;
+  } 
 
   public String getUserInputString(String message) {
     System.out.println(message);
