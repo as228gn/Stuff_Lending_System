@@ -23,54 +23,52 @@ public class Menu {
   public MenuChoise printMenu() throws IOException {
     System.out.println("");
     System.out.println("Welcome to the stuff lending system!");
-    System.out.println("Press c to create a member:");    
-    System.out.println("Press d to delete a member:");    
-    System.out.println("Press u to update a member:");    
-    System.out.println("Press v to view a member:");    
-    System.out.println("Press a to view all members");    
-    System.out.println("Press t to view all members and their items:");    
+    System.out.println("Press c to create a member:");
+    System.out.println("Press d to delete a member:");
+    System.out.println("Press u to update a member:");
+    System.out.println("Press v to view a member:");
+    System.out.println("Press a to view all members");
+    System.out.println("Press t to view all members and their items:");
     System.out.println("Press i to create an item:");
-    System.out.println("Press e to delete an item:");    
-    System.out.println("Press p to update an item:");    
-    System.out.println("Press y to view an item:");   
+    System.out.println("Press e to delete an item:");
+    System.out.println("Press p to update an item:");
+    System.out.println("Press y to view an item:");
     System.out.println("Press l to lend an item:");
-    System.out.println("Press f to advance the day:");     
+    System.out.println("Press f to advance the day:");
     System.out.print("Press q to quit: ");
     System.out.println("");
 
-    int choise = System.in.read();
-    while (choise == '\r' || choise == '\n') {
-      choise = System.in.read();
-    }
+    String choise = scanner.nextLine();
 
-    if (choise == 'c') {
+    if (choise.equals("c")) {
       return MenuChoise.CREATE_MEMBER;
-    } else if (choise == 'd') {
+  } else if (choise.equals("d")) {
       return MenuChoise.DELETE_MEMBER;
-    } else if (choise == 'u') {
+  } else if (choise.equals("u")) {
       return MenuChoise.UPDATE_MEMBER;
-    } else if (choise == 'v') {
+  } else if (choise.equals("v")) {
       return MenuChoise.VIEW_MEMBER;
-    } else if (choise == 'a') {
+  } else if (choise.equals("a")) {
       return MenuChoise.VIEW_ALL_MEMBERS;
-    } else if (choise == 't') {
+  } else if (choise.equals("t")) {
       return MenuChoise.VIEW_ALL_MEMBERS_ITEMS;
-    } else if (choise == 'i') {
+  } else if (choise.equals("i")) {
       return MenuChoise.CREATE_ITEM;
-    } else if (choise == 'e') {
+  } else if (choise.equals("e")) {
       return MenuChoise.DELETE_ITEM;
-    } else if (choise == 'p') {
+  } else if (choise.equals("p")) {
       return MenuChoise.UPDATE_ITEM;
-    } else if (choise == 'y') {
+  } else if (choise.equals("y")) {
       return MenuChoise.VIEW_ITEM;
-    } else if (choise == 'l') {
+  } else if (choise.equals("l")) {
       return MenuChoise.LEND_ITEM;
-    } else if (choise == 'f') {
+  } else if (choise.equals("f")) {
       return MenuChoise.ADVANCE_DAY;
-    } else if (choise == 'q') {
+  } else if (choise.equals("q")) {
       return MenuChoise.QUIT;
-    }
-    return MenuChoise.INVALID;
+  } else {
+      return MenuChoise.INVALID;
+  }
   }
 
   public Category chooseCategory() throws IOException {
@@ -82,26 +80,24 @@ public class Menu {
     System.out.println("Press s for sport");
     System.out.println("Press o for other");
 
-    int choise = System.in.read();
-    while (choise == '\r' || choise == '\n') {
-      choise = System.in.read();
-    }
+    String choise = scanner.nextLine();
 
-    if (choise == 't') {
+    if (choise.equals("t")) {
       return Category.TOOL;
-    } else if (choise == 'v') {
+  } else if (choise.equals("v")) {
       return Category.VEHICLE;
-    } else if (choise == 'g') {
+  } else if (choise.equals("g")) {
       return Category.GAME;
-    } else if (choise == 'y') {
+  } else if (choise.equals("y")) {
       return Category.TOY;
-    } else if (choise == 's') {
-      return Category.SPORT; 
-    } else if (choise == 'o') {
+  } else if (choise.equals("s")) {
+      return Category.SPORT;
+  } else if (choise.equals("o")) {
       return Category.OTHER;
-    }
-    return Category.INVALID;
-  } 
+  } else {
+      return Category.INVALID;
+  }
+  }
 
   public String getUserInputString(String message) {
     System.out.println(message);

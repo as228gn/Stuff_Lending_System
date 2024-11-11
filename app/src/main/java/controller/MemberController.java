@@ -76,10 +76,10 @@ public class MemberController {
             }
           }
           
+          model.Category category = menu.chooseCategory();
           String name = menu.getUserInputString("Name: ");
           String description = menu.getUserInputString("Description: ");
           int price = menu.getUserInputInt("Price: ");
-          model.Category category = menu.chooseCategory();
 
           owner.createItem(category, name, description, price, day);
         }
@@ -95,24 +95,24 @@ public class MemberController {
             }
           }
         }
-        // if (menuChoise == MenuChoise.UPDATE_ITEM) {
-        //   String itemId = menu.getUserInputString("Please write the item-ID of the item you want to update: ");
-        //   String category = menu.getUserInputString("Category: ");
-        //   String name = menu.getUserInputString("Name: ");
-        //   String description = menu.getUserInputString("Description: ");
-        //   int price = menu.getUserInputInt("Price: ");
-        //   for (model.Member member : members) {
-        //     List<model.Item> items = member.getItems();
-        //     for (model.Item a : items) {
-        //       if (a.getId().equals(itemId)) {
-        //         a.setCategory(category);
-        //         a.setName(name);
-        //         a.setDescription(description);
-        //         a.setPrice(price);
-        //       }
-        //     }
-        //   }
-        // }
+        if (menuChoise == MenuChoise.UPDATE_ITEM) {
+          String itemId = menu.getUserInputString("Please write the item-ID of the item you want to update: ");
+          model.Category category = menu.chooseCategory();
+          String name = menu.getUserInputString("Name: ");
+          String description = menu.getUserInputString("Description: ");
+          int price = menu.getUserInputInt("Price: ");
+          for (model.Member member : members) {
+            List<model.Item> items = member.getItems();
+            for (model.Item a : items) {
+              if (a.getId().equals(itemId)) {
+                a.setCategory(category);
+                a.setName(name);
+                a.setDescription(description);
+                a.setPrice(price);
+              }
+            }
+          }
+        }
         if (menuChoise == MenuChoise.VIEW_ITEM) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to view: ");
           for (model.Member member : members) {
