@@ -41,7 +41,7 @@ public class Member {
     return this.name;
   }
 
-  public void setName(String name) {
+  private void setName(String name) {
     this.name = name;
   }
 
@@ -49,7 +49,7 @@ public class Member {
     return this.email;
   }
 
-  public void setEmail(String email) {
+  private void setEmail(String email) {
     this.email = email;
   }
 
@@ -57,7 +57,7 @@ public class Member {
     return phone;
   }
 
-  public void setPhone(String phone) {
+  private void setPhone(String phone) {
     this.phone = phone;
   }
 
@@ -108,8 +108,32 @@ public class Member {
     this.dayOfCreation = dayOfCreation;
   }
 
-  public List<Item> getItems() {
-    return new ArrayList<>(this.ownedItems);
+  public Member deepCopy() {
+    Member copiedMember = new Member(this.name, this.email, this.phone);
+    copiedMember.id = this.id;
+    copiedMember.credit = this.credit;
+    copiedMember.dayOfCreation = this.dayOfCreation;
+    copiedMember.itemIdCounter = this.itemIdCounter;
+    
+    copiedMember.ownedItems = new ArrayList<>();
+    for (Item item : this.ownedItems) {
+        copiedMember.ownedItems.add(item.deepCopy());
+    }
+    
+    return copiedMember;
+}
+
+  /**
+   * A method that updates the member details.
+   *
+   * @param name  The name of the member.
+   * @param email The email of the member.
+   * @param phone The phonenumber of the member.
+   */
+  public void updateMemberDetails(String name, String email, String phone) {
+    setName(name);
+    setEmail(email);
+    setPhone(phone);
   }
 
   /**
@@ -135,6 +159,10 @@ public class Member {
     return item;
   }
 
+  public List<Item> getItems() {
+    return new ArrayList<>(this.ownedItems);
+  }
+
   private void addOwnedItem(Item item) {
     this.ownedItems.add(item);
     setCredit(100);
@@ -144,11 +172,6 @@ public class Member {
     this.ownedItems.remove(item);
   }
 
-  /**
-   * A copyconstructor of member.
-   *
-   * @return A string of full information of the member.
-   */
   public String fullInformation() {
     return "Name: " + getName() + ", Email: " + getEmail() + ", Phonenumber: " + getPhone() + ", MemberID: " + getId()
         + ", Credit: " + getCredit() + ", Number of owned items: "

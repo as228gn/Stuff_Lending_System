@@ -77,21 +77,122 @@ public class MemberList {
   }
 
   /**
-   * A method that deletes a member.
-   *
-   * @param member The member object to delete.
+   * Creates a deep copy of the MemberList.
+   * 
+   * @return A new MemberList instance with deep-copied Members.
    */
-  public void deleteMember(Member member) {
-    members.remove(member);
+  public MemberList deepCopy() {
+    MemberList copiedList = new MemberList();
+    for (Member member : this.members) {
+      copiedList.members.add(member.deepCopy());
+    }
+    return copiedList;
   }
 
-  /**
-   * A method that returns a list of members.
-   *
-   * @return Members.
-   */
-  public List<model.Member> getMembers() {
-    return new ArrayList<>(this.members);
+  public void deleteMember(String email) {
+    for (model.Member member : members) {
+      if (email.equals(member.getEmail())) {
+        members.remove(member);
+      }
+    }
   }
 
+  public void updateMemberDetails(String email, String name, String newEmail, String phone) {
+    for (model.Member member : members) {
+      if (email.equals(member.getEmail())) {
+        member.updateMemberDetails(name, newEmail, phone);
+      }
+    }
+  }
+
+  public void createItem(String email, Category category, String name, String description, int price, Day day)
+      throws Exception {
+    for (model.Member member : members) {
+      if (email.equals(member.getEmail())) {
+        member.createItem(category, name, description, price, day);
+      }
+    }
+  }
+
+  // /**
+  // * A method that returns a list of members.
+  // *
+  // * @return Members.
+  // */
+  // public List<model.Member> getMembers() {
+  // return new ArrayList<>(this.members);
+  // }
+
+  public List<Member> getMembers() {
+    List<Member> copiedMembers = new ArrayList<>();
+    for (Member member : this.members) {
+      copiedMembers.add(member.deepCopy());
+    }
+    return copiedMembers;
+  }
+
+  public void removeOwnedItem(String itemId) {
+    for (model.Member member : members) {
+      List<model.Item> items = member.getItems();
+
+      for (model.Item a : items) {
+        if (a.getId().equals(itemId)) {
+          member.removeOwnedItem(a);
+        }
+      }
+    }
+  }
+
+  public void updateItemDetails(String itemId, Category category, String name, String description, int price) {
+    for (model.Member member : members) {
+      List<model.Item> items = member.getItems();
+      for (model.Item a : items) {
+        if (a.getId().equals(itemId)) {
+          a.updateItemDetails(category, name, description, price);
+        }
+      }
+    }
+  }
+
+  @SuppressWarnings("null")
+  public void lendItem(String email, String itemId, int startDay, int endDay, Day day) throws Exception {
+
+    model.Member lender = null;
+    model.Member owner = null;
+    model.Item item = null;
+    for (model.Member member : members) {
+      if (email.equals(member.getEmail())) {
+        lender = member;
+      }
+    }
+
+    for (model.Member member : members) {
+      List<model.Item> items = member.getItems();
+
+      for (model.Item a : items) {
+        if (a.getId().equals(itemId)) {
+          item = a;
+        }
+      }
+    }
+    String owningMemberId = item.getOwnedBy();
+    for (model.Member member : members) {
+      if (owningMemberId.equals(member.getId())) {
+        owner = member;
+      }
+    }
+    if (startDay < day.getDay()) {
+      throw new Exception("Start time has expired.");
+    }
+    String ownerId = item.getOwnedBy();
+    if (!ownerId.equals(lender.getId())) {
+      if (lender.getCredit() < item.getPrice() * (endDay - day.getDay())) {
+        throw new Exception("Not enough credit.");
+      }
+    }
+    int priceToOwner = item.createContract(startDay, endDay, day, lender.getName());
+    lender.setCredit(-priceToOwner);
+    owner.setCredit(priceToOwner);
+
+  }
 }

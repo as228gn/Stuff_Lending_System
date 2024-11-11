@@ -36,7 +36,7 @@ public class Item {
     return this.category;
   }
 
-  public void setCategory(Category category) {
+  private void setCategory(Category category) {
     this.category = category;
   }
 
@@ -44,7 +44,7 @@ public class Item {
     return this.name;
   }
 
-  public void setName(String name) {
+  private void setName(String name) {
     this.name = name;
   }
 
@@ -52,7 +52,7 @@ public class Item {
     return this.description;
   }
 
-  public void setDescription(String description) {
+  private void setDescription(String description) {
     this.description = description;
   }
 
@@ -60,7 +60,7 @@ public class Item {
     return this.price;
   }
 
-  public void setPrice(int price) {
+  private void setPrice(int price) {
     this.price = price;
   }
 
@@ -89,11 +89,26 @@ public class Item {
   }
 
   /**
+   * A method that updates the item details.
+   *
+   * @param category    The category of the item.
+   * @param name        The name of th item.
+   * @param description The description of the item.
+   * @param price       The price of the item.
+   */
+  public void updateItemDetails(model.Category category, String name, String description, int price) {
+    setCategory(category);
+    setName(name);
+    setDescription(description);
+    setPrice(price);
+  }
+
+  /**
    * A method that creates a contract between the lender and the owner.
    *
-   * @param endTime The time the item returns.
-   * @param day     The startday of the lending.
-   * @param lenderName  The lender of the item.
+   * @param endTime    The time the item returns.
+   * @param day        The startday of the lending.
+   * @param lenderName The lender of the item.
    * @throws Exception if the lender doesn´t have enough credit or if the start
    *                   time has expired.
    */
@@ -140,13 +155,25 @@ public class Item {
     this.contracts.add(newContract);
   }
 
-  /**
-   * A method that return the contracts that belong to the item.
-   *
-   * @return The contracts.
-   */
   public List<model.Contract> getContracts() {
-    return new ArrayList<>(this.contracts);
+    List<model.Contract> contractsCopy = new ArrayList<>();
+    for (model.Contract contract : this.contracts) {
+        contractsCopy.add(contract.contractCopy());
+    }
+    return contractsCopy;
+}
+
+  public Item deepCopy() {
+    Item copiedItem = new Item(this.category, this.name, this.description, this.price);
+    copiedItem.dayOfCreation = this.dayOfCreation;
+    copiedItem.ownedById = this.ownedById;
+    copiedItem.id = this.id;
+
+    for (Contract contract : this.contracts) {
+      copiedItem.contracts.add(contract.contractCopy());
+    }
+
+    return copiedItem;
   }
 
   @Override

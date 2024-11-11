@@ -27,7 +27,7 @@ public class App {
     sara.createItem(Category.SPORT, "Ball", "Football", 5, day);
     sara.createItem(Category.OTHER, "Harry Potter", "Book", 10, day);
     joe.createItem(Category.OTHER, "Pot", "Pot", 60, day);
-
+    
     controller.startMenu(memberList, menu, day);
   }
 }

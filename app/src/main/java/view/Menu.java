@@ -142,8 +142,9 @@ public class Menu {
    * A method that views all the members and their items.
    *
    * @param members The members to be viewed.
+   * @throws Exception Throws exception.
    */
-  public void viewAllMembersAndItems(List<model.Member> members) {
+  public void viewAllMembersAndItems(List<model.Member> members) throws Exception {
     for (model.Member member : members) {
       System.out.println(member.toString());
       List<model.Item> items = member.getItems();

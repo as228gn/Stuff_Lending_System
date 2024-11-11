@@ -20,7 +20,6 @@ public class MemberController {
    * @throws Exception if the lender doesn´t have enough credit or if the
    *                   start-time has expired.
    */
-  @SuppressWarnings("null")
   public void startMenu(model.MemberList memberList, view.Menu menu, Day day) throws Exception {
     while (true) {
       try {
@@ -34,24 +33,14 @@ public class MemberController {
         }
         if (menuChoise == MenuChoise.DELETE_MEMBER) {
           String email = menu.getUserInputString("Please write the email of the member you want to delete: ");
-          for (model.Member member : members) {
-            if (email.equals(member.getEmail())) {
-              memberList.deleteMember(member);
-            }
-          }
+          memberList.deleteMember(email);
         }
         if (menuChoise == MenuChoise.UPDATE_MEMBER) {
           String email = menu.getUserInputString("Please write the email of the member you want to update: ");
           String name = menu.getUserInputString("Updated name: ");
           String newEmail = menu.getUserInputString("Updated email: ");
           String phone = menu.getUserInputString("Updated phonenumber: ");
-          for (model.Member member : members) {
-            if (email.equals(member.getEmail())) {
-              member.setName(name);
-              member.setEmail(newEmail);
-              member.setPhone(phone);
-            }
-          }
+          memberList.updateMemberDetails(email, name, newEmail, phone);
         }
         if (menuChoise == MenuChoise.VIEW_MEMBER) {
           String email = menu.getUserInputString("Please write the email of the member you want to view: ");
@@ -60,6 +49,7 @@ public class MemberController {
               menu.viewMember(member);
             }
           }
+
         }
         if (menuChoise == MenuChoise.VIEW_ALL_MEMBERS) {
           menu.viewAllMembers(members);
@@ -68,32 +58,17 @@ public class MemberController {
           menu.viewAllMembersAndItems(members);
         }
         if (menuChoise == MenuChoise.CREATE_ITEM) {
-          model.Member owner = null;
-          String ownerOfItem = menu.getUserInputString("Owners email: ");
-          for (model.Member member : members) {
-            if (ownerOfItem.equals(member.getEmail())) {
-              owner = member;
-            }
-          }
-          
+          String email = menu.getUserInputString("Owners email: ");
           model.Category category = menu.chooseCategory();
           String name = menu.getUserInputString("Name: ");
           String description = menu.getUserInputString("Description: ");
           int price = menu.getUserInputInt("Price: ");
 
-          owner.createItem(category, name, description, price, day);
+          memberList.createItem(email, category, name, description, price, day);
         }
         if (menuChoise == MenuChoise.DELETE_ITEM) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to delete: ");
-          for (model.Member member : members) {
-            List<model.Item> items = member.getItems();
-
-            for (model.Item a : items) {
-              if (a.getId().equals(itemId)) {
-                member.removeOwnedItem(a);
-              }
-            }
-          }
+          memberList.removeOwnedItem(itemId);
         }
         if (menuChoise == MenuChoise.UPDATE_ITEM) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to update: ");
@@ -101,17 +76,7 @@ public class MemberController {
           String name = menu.getUserInputString("Name: ");
           String description = menu.getUserInputString("Description: ");
           int price = menu.getUserInputInt("Price: ");
-          for (model.Member member : members) {
-            List<model.Item> items = member.getItems();
-            for (model.Item a : items) {
-              if (a.getId().equals(itemId)) {
-                a.setCategory(category);
-                a.setName(name);
-                a.setDescription(description);
-                a.setPrice(price);
-              }
-            }
-          }
+          memberList.updateItemDetails(itemId, category, name, description, price);
         }
         if (menuChoise == MenuChoise.VIEW_ITEM) {
           String itemId = menu.getUserInputString("Please write the item-ID of the item you want to view: ");
@@ -126,44 +91,11 @@ public class MemberController {
         }
         if (menuChoise == MenuChoise.LEND_ITEM) {
           String email = menu.getUserInputString("Email of the lending member: ");
-          model.Member lender = null;
-          model.Member owner = null;
-          model.Item item = null;
-          for (model.Member member : members) {
-            if (email.equals(member.getEmail())) {
-              lender = member;
-            }
-          }
           String itemId = menu.getUserInputString("ID of the item you want to lend:");
-          for (model.Member member : members) {
-            List<model.Item> items = member.getItems();
-
-            for (model.Item a : items) {
-              if (a.getId().equals(itemId)) {
-                item = a;
-              }
-            }
-          }
-          String owningMemberId = item.getOwnedBy();
-          for (model.Member member : members) {
-            if (owningMemberId.equals(member.getId())) {
-              owner = member;
-            }
-          }
           int startDay = menu.getUserInputInt("From what day do you want to lend it? ");
           int endDay = menu.getUserInputInt("Till what day do you want to lend it? ");
-          if (startDay < day.getDay()) {
-            throw new Exception("Start time has expired.");
-          }
-          String ownerId = item.getOwnedBy();
-          if (!ownerId.equals(lender.getId())) {
-            if (lender.getCredit() < item.getPrice() * (endDay - day.getDay())) {
-              throw new Exception("Not enough credit.");
-            }
-          }
-          int priceToOwner = item.createContract(startDay, endDay, day, lender.getName());
-          lender.setCredit(-priceToOwner);
-          owner.setCredit(priceToOwner);
+
+          memberList.lendItem(email, itemId, startDay, endDay, day);
 
         }
         if (menuChoise == MenuChoise.ADVANCE_DAY) {

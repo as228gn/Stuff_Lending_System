@@ -35,6 +35,10 @@ public class Contract {
     return this.endTime;
   }
 
+  public Contract contractCopy() {
+    return new Contract(this.startTime, this.endTime, this.lenderName);
+  }
+
   @Override
   public String toString() {
     return "      Lended to: " + lenderName + ", StartTime: " + getStartTime() + ", EndTime: " + getEndTime();
