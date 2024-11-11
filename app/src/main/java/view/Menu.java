@@ -3,7 +3,6 @@ package view;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-
 import model.Category;
 
 /**
@@ -42,35 +41,41 @@ public class Menu {
 
     if (choise.equals("c")) {
       return MenuChoise.CREATE_MEMBER;
-  } else if (choise.equals("d")) {
+    } else if (choise.equals("d")) {
       return MenuChoise.DELETE_MEMBER;
-  } else if (choise.equals("u")) {
+    } else if (choise.equals("u")) {
       return MenuChoise.UPDATE_MEMBER;
-  } else if (choise.equals("v")) {
+    } else if (choise.equals("v")) {
       return MenuChoise.VIEW_MEMBER;
-  } else if (choise.equals("a")) {
+    } else if (choise.equals("a")) {
       return MenuChoise.VIEW_ALL_MEMBERS;
-  } else if (choise.equals("t")) {
+    } else if (choise.equals("t")) {
       return MenuChoise.VIEW_ALL_MEMBERS_ITEMS;
-  } else if (choise.equals("i")) {
+    } else if (choise.equals("i")) {
       return MenuChoise.CREATE_ITEM;
-  } else if (choise.equals("e")) {
+    } else if (choise.equals("e")) {
       return MenuChoise.DELETE_ITEM;
-  } else if (choise.equals("p")) {
+    } else if (choise.equals("p")) {
       return MenuChoise.UPDATE_ITEM;
-  } else if (choise.equals("y")) {
+    } else if (choise.equals("y")) {
       return MenuChoise.VIEW_ITEM;
-  } else if (choise.equals("l")) {
+    } else if (choise.equals("l")) {
       return MenuChoise.LEND_ITEM;
-  } else if (choise.equals("f")) {
+    } else if (choise.equals("f")) {
       return MenuChoise.ADVANCE_DAY;
-  } else if (choise.equals("q")) {
+    } else if (choise.equals("q")) {
       return MenuChoise.QUIT;
-  } else {
+    } else {
       return MenuChoise.INVALID;
-  }
+    }
   }
 
+  /**
+   * A method that prints a menu for choosing category to the console.
+   *
+   * @return The categorychoise.
+   * @throws IOException Throws exception.
+   */
   public Category chooseCategory() throws IOException {
     System.out.println("Choose your category");
     System.out.println("Press t for tool");
@@ -84,19 +89,19 @@ public class Menu {
 
     if (choise.equals("t")) {
       return Category.TOOL;
-  } else if (choise.equals("v")) {
+    } else if (choise.equals("v")) {
       return Category.VEHICLE;
-  } else if (choise.equals("g")) {
+    } else if (choise.equals("g")) {
       return Category.GAME;
-  } else if (choise.equals("y")) {
+    } else if (choise.equals("y")) {
       return Category.TOY;
-  } else if (choise.equals("s")) {
+    } else if (choise.equals("s")) {
       return Category.SPORT;
-  } else if (choise.equals("o")) {
+    } else if (choise.equals("o")) {
       return Category.OTHER;
-  } else {
+    } else {
       return Category.INVALID;
-  }
+    }
   }
 
   public String getUserInputString(String message) {
