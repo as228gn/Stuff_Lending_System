@@ -32,6 +32,12 @@ public class Item {
     this.price = price;
   }
 
+  /**
+   * Creates a deep copy of the Item.
+   * 
+
+   * @return A new Item instance with copied Contracts.
+   */
   public Item deepCopy() {
     Item copiedItem = new Item(this.category, this.name, this.description, this.price);
     copiedItem.dayOfCreation = this.dayOfCreation;
@@ -168,13 +174,19 @@ public class Item {
     this.contracts.add(newContract);
   }
 
+  /**
+   * Creates a copy of the contracts.
+   * 
+
+   * @return A new list of contracts.
+   */
   public List<model.Contract> getContracts() {
     List<model.Contract> contractsCopy = new ArrayList<>();
     for (model.Contract contract : this.contracts) {
-        contractsCopy.add(contract.contractCopy());
+      contractsCopy.add(contract.contractCopy());
     }
     return contractsCopy;
-}
+  }
 
   @Override
   public String toString() {

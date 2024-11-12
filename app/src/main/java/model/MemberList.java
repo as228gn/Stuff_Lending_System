@@ -16,6 +16,7 @@ public class MemberList {
   /**
    * Creates a deep copy of the MemberList.
    * 
+
    * @return A new MemberList instance with deep-copied Members.
    */
   public MemberList deepCopy() {
@@ -26,6 +27,12 @@ public class MemberList {
     return copiedList;
   }
 
+  /**
+   * Creates a deep copy of the members.
+   * 
+
+   * @return A new MemberList instance with deep-copied Members.
+   */
   public List<Member> getMembers() {
     List<Member> copiedMembers = new ArrayList<>();
     for (Member member : this.members) {
@@ -97,6 +104,11 @@ public class MemberList {
     return true;
   }
 
+  /**
+   * A method that deletes a member.
+   *
+   * @param email The email of the member to be deleted.
+   */
   public void deleteMember(String email) {
     for (model.Member member : members) {
       if (email.equals(member.getEmail())) {
@@ -105,6 +117,14 @@ public class MemberList {
     }
   }
 
+  /**
+   * A method that updates a members details.
+   *
+   * @param email The email of the member to be updated.
+   * @param name The new name of the member.
+   * @param newEmail The new email of the member.
+   * @param phone The new phonenumber.
+   */
   public void updateMemberDetails(String email, String name, String newEmail, String phone) {
     for (model.Member member : members) {
       if (email.equals(member.getEmail())) {
@@ -113,6 +133,17 @@ public class MemberList {
     }
   }
 
+  /**
+   * A method that adds a new otem to the system.
+   *
+   * @param email The email of the owning member.
+   * @param category The category of the item.
+   * @param name The name of the item.
+   * @param description The description of the item.
+   * @param price The price of the item.
+   * @param day The day the item was added to the system.
+   * @throws Exception if argument is not unique.
+   */
   public void createItem(String email, Category category, String name, String description, int price, Day day)
       throws Exception {
     for (model.Member member : members) {
@@ -122,6 +153,11 @@ public class MemberList {
     }
   }
 
+  /**
+   * A method that deletes an item from the system.
+   *
+   * @param itemId The ID of the item to be deleted.
+   */
   public void removeOwnedItem(String itemId) {
     for (model.Member member : members) {
       List<model.Item> items = member.getItems();
@@ -134,12 +170,30 @@ public class MemberList {
     }
   }
 
+  /**
+   * A method that updates the details of an item.
+   *
+   * @param itemId The ID of the item to be updated.
+   * @param category The new category.
+   * @param name The new name.
+   * @param description The new description.
+   * @param price The new price.
+   */
   public void updateItemDetails(String itemId, Category category, String name, String description, int price) {
     for (model.Member member : members) {
       member.updateItemDetails(itemId, category, name, description, price);
     }
   }
 
+  /**
+   * A method that creates a lendingcontract.
+   *
+   * @param email The email of the member who wants to lend an item.
+   * @param itemId The ID of the item to be lended.
+   * @param startDay The starting day of the lendingperiod.
+   * @param endDay The end day of the lendingperiod.
+   * @param day The current day.
+   */
   @SuppressWarnings("null")
   public void lendItem(String email, String itemId, int startDay, int endDay, Day day) throws Exception {
 

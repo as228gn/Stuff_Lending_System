@@ -37,6 +37,12 @@ public class Member {
   public Member() {
   }
 
+  /**
+   * Creates a deep copy of the Member.
+   * 
+
+   * @return A new Member instance with deep-copied Items.
+   */
   public Member deepCopy() {
     Member copiedMember = new Member(this.name, this.email, this.phone);
     copiedMember.id = this.id;
@@ -159,6 +165,15 @@ public class Member {
     return item;
   }
 
+  /**
+   * A method that updates the details of an item.
+   *
+   * @param itemId The ID of the item to be updated.
+   * @param category The new category.
+   * @param name The new name.
+   * @param description The new description.
+   * @param price The new price.
+   */
   public void updateItemDetails(String itemId, Category category, String name, String description, int price) {
     for (model.Item a : ownedItems) {
       if (a.getId().equals(itemId)) {
@@ -167,6 +182,11 @@ public class Member {
     }
   }
 
+  /**
+   * A method that returns the item to be lended.
+   *
+   * @param itemId The item to be lended.
+   */
   public Item getItemToLend(String itemId) {
     for (model.Item a : ownedItems) {
       if (a.getId().equals(itemId)) {
@@ -176,15 +196,31 @@ public class Member {
     return null;
   }
 
+  /**
+   * A method that adds an item to the system.
+   *
+   * @param item The item to be added.
+   */
   private void addOwnedItem(Item item) {
     this.ownedItems.add(item);
     setCredit(100);
   }
 
+  /**
+   * A method that deletes an item from the system.
+   *
+   * @param item The item to be deleted.
+   */
   public void removeOwnedItem(Item item) {
     this.ownedItems.remove(item);
   }
 
+  /**
+   * Creates a deep copy of the items.
+   * 
+
+   * @return A copied list of the items.
+   */
   public List<Item> getItems() {
     List<Item> deepCopiedItems = new ArrayList<>();
     for (Item item : this.ownedItems) {
@@ -193,6 +229,12 @@ public class Member {
     return deepCopiedItems;
   }
 
+  /**
+   * A method that returns the full information about the member.
+   * 
+
+   @return A string with the full information about the member.
+   */
   public String fullInformation() {
     return "Name: " + getName() + ", Email: " + getEmail() + ", Phonenumber: " + getPhone() + ", MemberID: " + getId()
         + ", Credit: " + getCredit() + ", Number of owned items: "
