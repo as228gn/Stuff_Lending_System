@@ -209,10 +209,14 @@ public class Member {
   /**
    * A method that deletes an item from the system.
    *
-   * @param item The item to be deleted.
+   * @param itemId The id of the item to be deleted.
    */
-  public void removeOwnedItem(Item item) {
-    this.ownedItems.remove(item);
+  public void removeOwnedItem(String itemId) {
+    for (model.Item a : ownedItems) {
+      if (a.getId().equals(itemId)) {
+        this.ownedItems.remove(a);
+      }
+    }
   }
 
   /**

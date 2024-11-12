@@ -17,8 +17,8 @@ public class App {
   public static void main(String[] args) throws Exception {
     model.MemberList memberList = new MemberList();
     model.Day day = new Day(4);
-
     MemberController controller = new MemberController();
+    
     var joe = memberList.createMember("Joe", "joe.jones@email.com", "12938", day);
     joe.createItem(Category.OTHER, "Pot", "Pot", 60, day);
     
@@ -29,7 +29,6 @@ public class App {
     memberList.createMember("Benny", "benny.andersson@email.com", "23457", day);
     
     view.Menu menu = new Menu();
-    model.MemberList memberListCopy = memberList.deepCopy();
-    controller.startMenu(memberListCopy, menu, day);
+    controller.startMenu(memberList, menu, day);
   }
 }

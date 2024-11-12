@@ -14,20 +14,6 @@ public class MemberList {
   }
 
   /**
-   * Creates a deep copy of the MemberList.
-   * 
-
-   * @return A new MemberList instance with deep-copied Members.
-   */
-  public MemberList deepCopy() {
-    MemberList copiedList = new MemberList();
-    for (Member member : this.members) {
-      copiedList.members.add(member.deepCopy());
-    }
-    return copiedList;
-  }
-
-  /**
    * Creates a deep copy of the members.
    * 
 
@@ -160,13 +146,7 @@ public class MemberList {
    */
   public void removeOwnedItem(String itemId) {
     for (model.Member member : members) {
-      List<model.Item> items = member.getItems();
-
-      for (model.Item a : items) {
-        if (a.getId().equals(itemId)) {
-          member.removeOwnedItem(a);
-        }
-      }
+      member.removeOwnedItem(itemId);
     }
   }
 
