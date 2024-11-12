@@ -32,6 +32,19 @@ public class Item {
     this.price = price;
   }
 
+  public Item deepCopy() {
+    Item copiedItem = new Item(this.category, this.name, this.description, this.price);
+    copiedItem.dayOfCreation = this.dayOfCreation;
+    copiedItem.ownedById = this.ownedById;
+    copiedItem.id = this.id;
+
+    for (Contract contract : this.contracts) {
+      copiedItem.contracts.add(contract.contractCopy());
+    }
+
+    return copiedItem;
+  }
+
   public Category getCategory() {
     return this.category;
   }
@@ -162,19 +175,6 @@ public class Item {
     }
     return contractsCopy;
 }
-
-  public Item deepCopy() {
-    Item copiedItem = new Item(this.category, this.name, this.description, this.price);
-    copiedItem.dayOfCreation = this.dayOfCreation;
-    copiedItem.ownedById = this.ownedById;
-    copiedItem.id = this.id;
-
-    for (Contract contract : this.contracts) {
-      copiedItem.contracts.add(contract.contractCopy());
-    }
-
-    return copiedItem;
-  }
 
   @Override
   public String toString() {

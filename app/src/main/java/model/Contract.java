@@ -22,6 +22,10 @@ public class Contract {
     this.lenderName = lenderName;
   }
 
+  public Contract contractCopy() {
+    return new Contract(this.startTime, this.endTime, this.lenderName);
+  }
+
   public int getStartTime() {
     return this.startTime;
   }
@@ -33,10 +37,6 @@ public class Contract {
    */
   public int getEndTime() {
     return this.endTime;
-  }
-
-  public Contract contractCopy() {
-    return new Contract(this.startTime, this.endTime, this.lenderName);
   }
 
   @Override

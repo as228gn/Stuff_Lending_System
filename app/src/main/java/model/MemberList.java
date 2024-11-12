@@ -14,6 +14,27 @@ public class MemberList {
   }
 
   /**
+   * Creates a deep copy of the MemberList.
+   * 
+   * @return A new MemberList instance with deep-copied Members.
+   */
+  public MemberList deepCopy() {
+    MemberList copiedList = new MemberList();
+    for (Member member : this.members) {
+      copiedList.members.add(member.deepCopy());
+    }
+    return copiedList;
+  }
+
+  public List<Member> getMembers() {
+    List<Member> copiedMembers = new ArrayList<>();
+    for (Member member : this.members) {
+      copiedMembers.add(member.deepCopy());
+    }
+    return copiedMembers;
+  }
+
+  /**
    * A method that creates a member.
    *
    * @param name  The name of the member.
@@ -76,19 +97,6 @@ public class MemberList {
     return true;
   }
 
-  /**
-   * Creates a deep copy of the MemberList.
-   * 
-   * @return A new MemberList instance with deep-copied Members.
-   */
-  public MemberList deepCopy() {
-    MemberList copiedList = new MemberList();
-    for (Member member : this.members) {
-      copiedList.members.add(member.deepCopy());
-    }
-    return copiedList;
-  }
-
   public void deleteMember(String email) {
     for (model.Member member : members) {
       if (email.equals(member.getEmail())) {
@@ -114,23 +122,6 @@ public class MemberList {
     }
   }
 
-  // /**
-  // * A method that returns a list of members.
-  // *
-  // * @return Members.
-  // */
-  // public List<model.Member> getMembers() {
-  // return new ArrayList<>(this.members);
-  // }
-
-  public List<Member> getMembers() {
-    List<Member> copiedMembers = new ArrayList<>();
-    for (Member member : this.members) {
-      copiedMembers.add(member.deepCopy());
-    }
-    return copiedMembers;
-  }
-
   public void removeOwnedItem(String itemId) {
     for (model.Member member : members) {
       List<model.Item> items = member.getItems();
@@ -145,12 +136,7 @@ public class MemberList {
 
   public void updateItemDetails(String itemId, Category category, String name, String description, int price) {
     for (model.Member member : members) {
-      List<model.Item> items = member.getItems();
-      for (model.Item a : items) {
-        if (a.getId().equals(itemId)) {
-          a.updateItemDetails(category, name, description, price);
-        }
-      }
+      member.updateItemDetails(itemId, category, name, description, price);
     }
   }
 
@@ -167,12 +153,9 @@ public class MemberList {
     }
 
     for (model.Member member : members) {
-      List<model.Item> items = member.getItems();
-
-      for (model.Item a : items) {
-        if (a.getId().equals(itemId)) {
-          item = a;
-        }
+      item = member.getItemToLend(itemId);
+      if (item != null) {
+        break;
       }
     }
     String owningMemberId = item.getOwnedBy();

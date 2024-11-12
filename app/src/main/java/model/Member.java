@@ -37,6 +37,21 @@ public class Member {
   public Member() {
   }
 
+  public Member deepCopy() {
+    Member copiedMember = new Member(this.name, this.email, this.phone);
+    copiedMember.id = this.id;
+    copiedMember.credit = this.credit;
+    copiedMember.dayOfCreation = this.dayOfCreation;
+    copiedMember.itemIdCounter = this.itemIdCounter;
+
+    copiedMember.ownedItems = new ArrayList<>();
+    for (Item item : this.ownedItems) {
+      copiedMember.ownedItems.add(item.deepCopy());
+    }
+
+    return copiedMember;
+  }
+
   public String getName() {
     return this.name;
   }
@@ -108,21 +123,6 @@ public class Member {
     this.dayOfCreation = dayOfCreation;
   }
 
-  public Member deepCopy() {
-    Member copiedMember = new Member(this.name, this.email, this.phone);
-    copiedMember.id = this.id;
-    copiedMember.credit = this.credit;
-    copiedMember.dayOfCreation = this.dayOfCreation;
-    copiedMember.itemIdCounter = this.itemIdCounter;
-    
-    copiedMember.ownedItems = new ArrayList<>();
-    for (Item item : this.ownedItems) {
-        copiedMember.ownedItems.add(item.deepCopy());
-    }
-    
-    return copiedMember;
-}
-
   /**
    * A method that updates the member details.
    *
@@ -159,8 +159,21 @@ public class Member {
     return item;
   }
 
-  public List<Item> getItems() {
-    return new ArrayList<>(this.ownedItems);
+  public void updateItemDetails(String itemId, Category category, String name, String description, int price) {
+    for (model.Item a : ownedItems) {
+      if (a.getId().equals(itemId)) {
+        a.updateItemDetails(category, name, description, price);
+      }
+    }
+  }
+
+  public Item getItemToLend(String itemId) {
+    for (model.Item a : ownedItems) {
+      if (a.getId().equals(itemId)) {
+        return a;
+      }
+    }
+    return null;
   }
 
   private void addOwnedItem(Item item) {
@@ -170,6 +183,14 @@ public class Member {
 
   public void removeOwnedItem(Item item) {
     this.ownedItems.remove(item);
+  }
+
+  public List<Item> getItems() {
+    List<Item> deepCopiedItems = new ArrayList<>();
+    for (Item item : this.ownedItems) {
+      deepCopiedItems.add(item.deepCopy());
+    }
+    return deepCopiedItems;
   }
 
   public String fullInformation() {
