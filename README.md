@@ -1,6 +1,6 @@
-# A2
+# Stuff Lending System
 
-Project for Assignment 2
+A school project
 
 [design.md](design.md) contains the prescribed architectural design of the application.
 
@@ -14,9 +14,6 @@ Versioning is handled with git.
 
 ## System test
 See the [TestReport](testreport.md).
-
-## Handing In
-Adhere to the instructions according to the assigment.
 
 ## Usage
 The day of creation is chosed in App.java. Before you start the application you set the desired day in Day.  
